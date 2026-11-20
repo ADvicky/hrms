@@ -49,48 +49,98 @@ export default function MeetingCalendar() {
   );
 
   return (
-    <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-md ">
-      <DayPicker
-        mode="single"
-        selected={selected}
-      
-        onSelect={(date) => {
-          if (date) setSelected(date);
-        }}
-        month={month}
-        onMonthChange={setMonth}
-        showOutsideDays={false}
-        today={today || new Date(2026)}
-        classNames={{
-          root: "w-full",
-          month: "w-full",
-          month_grid: "w-full border-collapse",
-          day_button:
-            "mx-auto flex size-10 items-center justify-center rounded-full hover:bg-light",
-          selected:
-            "[&>button]:!bg-primary [&>button]:!text-white",
-          today: "font-bold text-primary",
-        }}
-      />
+    <div
+  className="
+    w-full max-w-sm rounded-2xl p-5 shadow-md
+    bg-white text-gray-900
+    dark:!bg-slate-500 dark:!text-gray-100
+  "
+>
+  <DayPicker
+    mode="single"
+    selected={selected}
+    onSelect={(date) => {
+      if (date) setSelected(date);
+    }}
+    month={month}
+    onMonthChange={setMonth}
+    showOutsideDays={false}
+    today={today || new Date(2026)}
+    classNames={{
+      root: "w-full",
 
-      <div className="mt-5 rounded-xl bg-light p-4">
-        {selectedMeetings.length > 0 ? (
-          selectedMeetings.map((meeting) => (
-            <div key={meeting.title} className="mb-2 last:mb-0">
-              <p className="font-semibold text-gray-900">
-                {meeting.title}
-              </p>
-              <p className="text-sm text-gray-600">
-                {meeting.time}
-              </p>
-            </div>
-          ))
-        ) : (
-          <p className="text-sm text-gray-600">
-            No meetings scheduled.
+      month: "w-full",
+
+      month_grid: "w-full border-collapse",
+
+      day_button: `
+        mx-auto flex size-10
+        items-center justify-center
+        rounded-full
+        text-gray-900
+        hover:bg-green-100
+        dark:!text-gray-100
+        dark:hover:!bg-slate-600
+      `,
+
+      selected: `
+        [&>button]:!bg-green-700
+        [&>button]:!text-white
+        dark:[&>button]:!bg-green-600
+        dark:[&>button]:!text-white
+      `,
+
+      today: `
+        font-bold text-green-700
+        dark:!text-green-400
+      `,
+    }}
+  />
+
+  {/* Meeting Section */}
+  <div
+    className="
+      mt-5 rounded-xl p-4
+      bg-green-50
+      dark:!bg-slate-700
+    "
+  >
+    {selectedMeetings.length > 0 ? (
+      selectedMeetings.map((meeting) => (
+        <div
+          key={meeting.title}
+          className="mb-2 last:mb-0"
+        >
+          <p
+            className="
+              font-semibold text-gray-900
+              dark:!text-gray-100
+            "
+          >
+            {meeting.title}
           </p>
-        )}
-      </div>
-    </div>
+
+          <p
+            className="
+              text-sm text-gray-600
+              dark:!text-gray-300
+            "
+          >
+            {meeting.time}
+          </p>
+        </div>
+      ))
+    ) : (
+      <p
+        className="
+          text-sm text-gray-600
+          dark:!text-gray-300
+        "
+      >
+        No meetings scheduled.
+      </p>
+    )}
+  </div>
+</div>
   );
 }

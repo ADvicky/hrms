@@ -57,8 +57,9 @@ export default function DashboardPage() {
 
    
     <div className="flex min-w-0 flex-col">
-
+  <div className="px-2">
       <WelcomeSection name="Admin" />
+      </div>
 
       <KpCard />
 

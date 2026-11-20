@@ -28,18 +28,20 @@ const activities = [
 
 export default function RecentActivities() {
   return (
-    <div className="w-full rounded-xl bg-white p-5 shadow-md ">
+    <div className="w-full rounded-xl bg-white dark:!bg-slate-500
+    dark:!text-gray-300 p-5 shadow-md ">
 
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900">
+        <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900 
+    dark:!text-gray-300">
           <Bell size={22} className="fill-primary text-primary" />
           Recent Activities
         </h2>
 
         <Link
           href="/activities"
-          className="flex items-center gap-1 text-sm font-semibold text-primary"
+          className="flex items-center gap-1 text-sm font-semibold text-primary dark:!text-gray-300"
         >
           View All
           <ArrowRight size={18} />
@@ -63,11 +65,11 @@ export default function RecentActivities() {
 
               {/* Activity and time */}
               <div className="flex min-w-0 flex-1 items-start justify-between gap-4">
-                <p className="text-sm text-gray-900">
+                <p className="text-sm text-gray-900 dark:!text-gray-300">
                   {activity.message}
                 </p>
 
-                <span className="shrink-0 whitespace-nowrap text-xs text-accent">
+                <span className="shrink-0 whitespace-nowrap text-xs text-accent dark:!text-gray-300">
                   {activity.time}
                 </span>
               </div>

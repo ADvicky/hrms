@@ -59,22 +59,22 @@ function LeaveApprovel() {
     );
   }
     return ( 
-         <div className="w-full min-w-0 rounded-xl bg-white p-3 shadow-md mt-5  ">
+         <div className="w-full min-w-0 rounded-xl bg-white dark:bg-slate-500 p-3 shadow-md mt-5  ">
 
-      {/* Header */}
+    
       <div className="mb-4 flex items-center justify-between">
 
         <div className="flex items-center gap-2">
          <Image src={"/briefcase.png"} alt="briefcase" height={100} width={100} className="w-6 h-6"/>
 
-          <h2 className="text-lg font-bold text-gray-900">
+          <h2 className="text-lg font-bold text-gray-900 dark:!text-gray-300">
             Leave Approvals
           </h2>
         </div>
 
         <Link
           href="/quick-actions"
-          className="flex items-center gap-1 text-sm font-medium text-primary"
+          className="flex items-center gap-1 text-sm font-medium text-primary dark:!text-gray-300"
         >
           View All
           <ArrowRight size={18} />
@@ -110,23 +110,23 @@ function LeaveApprovel() {
                 {/* Employee */}
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-light text-sm font-semibold text-primary">
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full dark:!text-gray-600 bg-light dark:!bg-slate-200 text-sm font-semibold text-primary">
                       {request.initials}
                     </div>
 
-                    <span className="whitespace-nowrap text-sm font-medium text-gray-900">
+                    <span className="whitespace-nowrap text-sm font-medium text-gray-900 dark:!text-gray-300">
                       {request.name}
                     </span>
                   </div>
                 </td>
 
-                {/* Leave Type */}
-                <td className="px-4 py-3 text-sm text-gray-700">
+              
+                <td className="px-4 py-3 text-sm text-gray-700 dark:!text-gray-300">
                   {request.leaveType}
                 </td>
 
                 {/* Dates */}
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700 dark:!text-gray-300">
                   {request.dates}
                 </td>
 

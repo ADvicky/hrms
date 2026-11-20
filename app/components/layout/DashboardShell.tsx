@@ -71,7 +71,7 @@ export default function DashboardShell({
           className="
             min-h-0 min-w-0 flex-1
             overflow-y-auto
-           bg-background text-slate-900
+           bg-background dark:bg-slate-800 text-gray-300 text-slate-900
             
           "
         >

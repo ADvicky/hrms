@@ -28,30 +28,30 @@ const payrollData = [
 
 function PayRole() {
     return ( 
-        <div className="w-full min-w-0 rounded-md bg-white p-3 shadow-md  ">
+        <div className="w-full min-w-0 rounded-md bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 shadow-md  ">
 
       
       <div className="mb-4 flex items-center justify-between">
 
         <div className="flex items-center gap-2">
-          <Wallet size={34} className="text-secondary" />
+          <Wallet size={34} className="text-secondary dark:!text-gray-300 " />
 
-          <h2 className="text-lg font-bold text-gray-900">
+          <h2 className="text-lg font-bold text-gray-900 dark:!text-gray-300 ">
             Payroll Overview
           </h2>
         </div>
 
         <Link
           href="/quick-actions"
-          className="flex items-center gap-1 text-xl font-medium text-secondary"
+          className="flex items-center gap-1 text-xl font-medium text-secondary dark:!text-gray-300 "
         >
           View Details
           <ArrowRight size={18} />
         </Link>
       </div>
       <div className="flex flex-col gap-6 p-4">
-<div>
-    <h1 className="text-5xl font-bold">12,50,000</h1>
+<div className="dark:!text-gray-300 ">
+    <h1 className="text-5xl font-bold ">12,50,000</h1>
     <p>October 2026 Payroll</p>
 </div>
 
@@ -68,8 +68,13 @@ function PayRole() {
         </span>
       </div>
 </div>
-      <div className=" h-20 w-full min-w-0">
-        <ResponsiveContainer width="100%" height="100%">
+   <div
+        className="
+          h-25 w-full min-w-0 rounded-lg
+          bg-white dark:bg-slate-800
+        "
+      >
+        <ResponsiveContainer width="100%" height="50%">
           <AreaChart
             data={payrollData}
             margin={{
@@ -79,7 +84,6 @@ function PayRole() {
               bottom: 0,
             }}
           >
-            
             <defs>
               <linearGradient
                 id="payrollGradient"
@@ -90,37 +94,58 @@ function PayRole() {
               >
                 <stop
                   offset="0%"
-                  stopColor="#65A879"
+                  stopColor="var(--payroll-chart-color)"
                   stopOpacity={0.5}
                 />
+
                 <stop
                   offset="100%"
-                  stopColor="#65A879"
+                  stopColor="var(--payroll-chart-color)"
                   stopOpacity={0}
                 />
               </linearGradient>
             </defs>
 
             <Tooltip
+              contentStyle={{
+                backgroundColor:
+                  "var(--payroll-tooltip-bg)",
+                color:
+                  "var(--payroll-tooltip-text)",
+                border:
+                  "1px solid var(--payroll-tooltip-border)",
+                borderRadius: "8px",
+              }}
+              labelStyle={{
+                color: "var(--payroll-tooltip-text)",
+              }}
+              itemStyle={{
+                color: "var(--payroll-tooltip-text)",
+              }}
               formatter={(value) => [
                 `₹${Number(value).toLocaleString("en-IN")}`,
                 "Payroll",
               ]}
-              labelFormatter={(label) => `July ${label}, 2025`}
+              labelFormatter={(label) =>
+                `October ${label}, 2026`
+              }
             />
 
             <Area
               type="linear"
               dataKey="amount"
-              stroke="#23834D"
+              stroke="var(--payroll-chart-color)"
               strokeWidth={2.5}
               fill="url(#payrollGradient)"
               dot={{
                 r: 4,
-                fill: "#23834D",
+                fill: "var(--payroll-chart-color)",
                 strokeWidth: 0,
               }}
-              activeDot={{ r: 6 }}
+              activeDot={{
+                r: 6,
+                fill: "var(--payroll-chart-color)",
+              }}
             />
           </AreaChart>
         </ResponsiveContainer>

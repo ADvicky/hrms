@@ -81,38 +81,43 @@ function KpCard() {
         return (
           <div
             key={card.id}
-            className="flex min-h-25 min-w-0 w-full flex-col justify-between rounded-xl bg-white p-2 shadow-md"
+            className="flex min-h-25 min-w-0 w-full flex-col justify-between rounded-xl bg-white dark:!bg-slate-500 p-2 shadow-md"
           >
             {/* Icon */}
-            <div className="rounded-lg bg-light p-2 w-fit">
-              <Icon size={38} className="text-primary" />
+            <div className="flex gap-2">
+            <div className="rounded-lg bg-light dark:!bg-slate-500 p-2 w-fit">
+              <Icon size={24} className="text-primary" />
+            </div>
+            <p className="text-md font-medium text-gray-700 dark:text-gray-300">
+      {card.title}
+    </p>
             </div>
 
             {/* Value */}
-            <div className="flex ">
+            {/* <div className="flex ">
             <div className="flex flex-col">
-            <h2 className="mt-3 text-3xl font-bold text-gray-900">
+            <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:!text-gray-300">
               {card.value}
             </h2>
 
-            {/* Title, Trend and Graph */}
-            <div className="flex items-end justify-between gap-2">
-              <div>
-                <p className="text-sm font-medium text-gray-700">
+            
+           
+            
+                <p className="text-sm font-medium text-gray-700 dark:!text-gray-300">
                   {card.title}
                 </p>
-                </div>
+               
 
               
-              </div>
+            
              
             </div>
               <div className="flex flex-col ml-auto">
                 <div
                   className={` flex ml-auto items-center gap-1 text-sm font-semibold ${
                     card.trend === "up"
-                      ? "text-green-600"
-                      : "text-orange-500"
+                      ? "text-green-600 dark:!text-green-200"
+                      : "text-orange-500 dark:!text-red-200"
                   }`}
                 >
                   {card.trend === "up" ? (
@@ -125,7 +130,7 @@ function KpCard() {
                 </div>
               <svg
                 viewBox="0 0 140 40"
-                className="h-12 w-28 shrink-0"
+                className="h-12 w-28 flex mb-auto shrink-0 dark:!text-gray-300"
                 aria-label={`${card.title} trend`}
                 role="img"
               >
@@ -145,7 +150,62 @@ function KpCard() {
                 />
               </svg>
             </div>
-            </div>
+            </div> */}
+            <div className="flex w-full items-end justify-between gap-3">
+
+  {/* Left Section */}
+  <div className="flex min-w-0 flex-col">
+    <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-gray-300">
+      {card.value}
+    </h2>
+
+    
+  </div>
+
+  {/* Right Section */}
+  <div className="flex shrink-0 flex-col items-end px-4">
+
+    {/* Trend Percentage */}
+    <div
+      className={`flex items-center gap-1 text-sm font-semibold ${
+        card.trend === "up"
+          ? "text-green-600 dark:text-green-200"
+          : "text-orange-500 dark:text-red-200"
+      }`}
+    >
+      {card.trend === "up" ? (
+        <TrendingUp size={16} />
+      ) : (
+        <TrendingDown size={16} />
+      )}
+
+      {card.percentage}%
+    </div>
+
+    {/* SVG Graph */}
+    <svg
+      viewBox="0 0 140 40"
+      className="block h-12 w-28 shrink-0"
+      aria-label={`${card.title} trend`}
+      role="img"
+    >
+      <path
+        d={`${graphPath} L 140 40 L 0 40 Z`}
+        className="fill-[#DDEFE2] dark:fill-green-900"
+        opacity="0.7"
+      />
+
+      <path
+        d={graphPath}
+        fill="none"
+        className="stroke-[#65A879] dark:stroke-green-400"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </div>
+</div>
           </div>
         );
       })}

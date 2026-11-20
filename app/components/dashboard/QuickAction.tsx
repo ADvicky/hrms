@@ -56,7 +56,7 @@ const quickActions = [
 function QuickActions() {
 
     return ( 
-    <div className="w-full min-w-0 rounded-xl bg-white p-3 shadow-md  ">
+    <div className="w-full min-w-0 rounded-xl bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 shadow-md  ">
 
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
@@ -64,14 +64,14 @@ function QuickActions() {
         <div className="flex items-center gap-2">
           <Zap size={24} className="text-primary" />
 
-          <h2 className="text-lg font-bold text-gray-900">
+          <h2 className="text-lg font-bold text-gray-900 dark:!text-gray-300">
             Quick Actions
           </h2>
         </div>
 
         <Link
           href="/quick-actions"
-          className="flex items-center gap-1 text-sm font-medium text-primary"
+          className="flex items-center gap-1 text-sm font-medium text-primary dark:!text-gray-300"
         >
           View All
           <ArrowRight size={18} />
@@ -92,9 +92,9 @@ function QuickActions() {
                 flex min-h-15 h-25 flex-col
                 items-center justify-center
                 gap-2 rounded-xl
-                bg-light p-3 text-center
+                bg-light dark:!bg-slate-200 p-3 text-center
                 transition-colors duration-200
-                hover:bg-accent
+                hover:bg-accent dark:hover:!bg-slate-300
               "
             >
               <Icon

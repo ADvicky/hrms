@@ -27,7 +27,7 @@ export default function WelcomeSection({
   }, []);
 
   return (
-    <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between bg-contain h-30 max-w-full w-full bg-no-repeat " style={{backgroundImage:"url('/welcome_banner.png')",}}>
+    <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between bg-contain h-30  max-w-full w-full bg-no-repeat " style={{backgroundImage:"url('/welcome_banner.png')",}}>
       <div className="p-4">
         <h1 className="text-2xl text-primary font-bold">
           Welcome back, {name}!

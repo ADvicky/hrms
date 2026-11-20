@@ -675,6 +675,11 @@ const VirtuosoTableComponents: TableComponents<Data> = {
         component={Paper}
         {...props}
         ref={ref}
+         className="
+          !bg-white
+          dark:!bg-gray-800
+           border border-gray-300
+        "
       />
     )
   ),
@@ -688,6 +693,13 @@ const VirtuosoTableComponents: TableComponents<Data> = {
         minWidth: 1080,
        
       }}
+       className="
+      !bg-white
+      dark:!bg-gray-800
+      [&_tbody_.MuiTableCell-root]:!text-gray-900
+      dark:[&_tbody_.MuiTableCell-root]:!text-gray-100
+      dark:[&_tbody_.MuiTableCell-root]:!border-gray-700
+    "
     />
   ),
 
@@ -697,7 +709,20 @@ const VirtuosoTableComponents: TableComponents<Data> = {
     )
   ),
 
-  TableRow,
+  // TableRow,
+
+    TableRow: (props) => (
+    <TableRow
+      {...props}
+      className="bg-white dark:bg-gray-800"
+      sx={{
+        "& .MuiTableCell-root": {
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        },
+      }}
+    />
+  ),
 
   TableBody: React.forwardRef<HTMLTableSectionElement>(
     (props, ref) => (
@@ -715,11 +740,16 @@ function fixedHeaderContent() {
           key={column.key}
           variant="head"
           style={{ width: column.width }}
-          sx={{
-            backgroundColor: "#65A879",
-            color: "#FFFFFF",
-            fontWeight: 600,
-          }}
+           className="
+            !bg-[#65A879]
+            dark:!bg-[#285C42]
+            !text-white
+          "
+          // sx={{
+          //   backgroundColor: "#65A879",
+          //   color: "#FFFFFF",
+          //   fontWeight: 600,
+          // }}
         >
           {column.label}
         </TableCell>
@@ -901,6 +931,7 @@ export default function TaskTimesheet() {
               onChange={(e) =>
                 updateDraft("date", e.target.value)
               }
+               className="dark:text-gray-300 dark:bg-gray-300"
             />
           ) : (
             row.date
@@ -918,6 +949,7 @@ export default function TaskTimesheet() {
               onChange={(e) =>
                 updateDraft("loginTime", e.target.value)
               }
+               className="dark:text-gray-300 dark:bg-gray-300"
             />
           ) : (
             row.loginTime
@@ -935,6 +967,7 @@ export default function TaskTimesheet() {
               onChange={(e) =>
                 updateDraft("logoutTime", e.target.value)
               }
+               className="dark:text-gray-300 dark:bg-gray-300"
             />
           ) : (
             row.logoutTime
@@ -956,6 +989,7 @@ export default function TaskTimesheet() {
                     e.target.value
                   )
                 }
+                 className="dark:text-gray-300 dark:bg-gray-300"
               >
                 <MenuItem value="" disabled>
                   Select Project
@@ -998,6 +1032,7 @@ export default function TaskTimesheet() {
                   e.target.value
                 )
               }
+               className="dark:text-gray-300 dark:bg-gray-300"
             />
           ) : (
             row.taskName || "-"
@@ -1017,6 +1052,7 @@ export default function TaskTimesheet() {
                   e.target.value as Status
                 )
               }
+              className="dark:text-gray-300 dark:bg-gray-300"
             >
               <MenuItem value="Pending">
                 Pending
@@ -1042,14 +1078,14 @@ export default function TaskTimesheet() {
                 aria-label="Save row"
                 onClick={handleSave}
               >
-                <Check size={18} />
+                <Check size={18} className="dark:text-gray-300"/>
               </IconButton>
 
               <IconButton
                 aria-label="Cancel editing"
                 onClick={handleCancel}
               >
-                <X size={18} />
+                <X size={18} className="dark:text-gray-300"/>
               </IconButton>
             </Box>
           ) : (
@@ -1059,7 +1095,7 @@ export default function TaskTimesheet() {
                 aria-label="Edit row"
                 onClick={() => handleEdit(row)}
               >
-                <Pencil size={18} />
+                <Pencil size={18} className="dark:text-gray-300"/>
               </IconButton>
 
               <IconButton
@@ -1082,7 +1118,7 @@ export default function TaskTimesheet() {
     <div className="flex w-full min-w-0 flex-col gap-4 p-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-2xl font-bold dark:text-gray-300">
           Time Sheets
         </h1>
 
@@ -1113,11 +1149,16 @@ export default function TaskTimesheet() {
    {/* Table */}
       <Paper
         sx={{
-          height: 600,
+          height: 565,
           width: "100%",
           minWidth: 0,
           overflow: "hidden",
         }}
+         className="
+    !bg-white
+    dark:!bg-gray-800
+    dark:!text-gray-100
+  "
       >
         <TableVirtuoso
           style={{ height: "100%" }}

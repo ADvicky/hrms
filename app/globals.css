@@ -41,6 +41,40 @@ body {
   --color-background: #F4F8F4;
 }
 
+:root {
+  --payroll-chart-color: #23834d;
+  --payroll-tooltip-bg: #ffffff;
+  --payroll-tooltip-text: #111827;
+  --payroll-tooltip-border: #e5e7eb;
+}
+
+.dark {
+  --payroll-chart-color: #65a879;
+  --payroll-tooltip-bg: #1f2937;
+  --payroll-tooltip-text: #f9fafb;
+  --payroll-tooltip-border: #4b5563;
+}
+
+:root {
+  --bar-1: #23834d;
+  --bar-2: #3b82f6;
+  --bar-3: #f59e0b;
+  --bar-4: #8b5cf6;
+  --bar-5: #ef4444;
+  --bar-6: #06b6d4;
+  --bar-7: #ec4899;
+}
+
+.dark {
+  --bar-1: #65a879;
+  --bar-2: #60a5fa;
+  --bar-3: #fbbf24;
+  --bar-4: #a78bfa;
+  --bar-5: #f87171;
+  --bar-6: #22d3ee;
+  --bar-7: #f472b6;
+}
+
 html,
 body {
   margin: 0;
