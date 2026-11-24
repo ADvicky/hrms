@@ -51,7 +51,7 @@ export default function MeetingCalendar() {
   return (
     <div
   className="
-    w-full max-w-sm rounded-2xl p-5 shadow-md
+    w-full max-w-sm rounded-2xl p-5 hover:shadow-md
     bg-white text-gray-900
     dark:!bg-slate-500 dark:!text-gray-100
   "
@@ -97,7 +97,7 @@ export default function MeetingCalendar() {
     }}
   />
 
-  {/* Meeting Section */}
+
   <div
     className="
       mt-5 rounded-xl p-4

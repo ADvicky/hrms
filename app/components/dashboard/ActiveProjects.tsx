@@ -46,9 +46,9 @@ const initialRequests: LeaveRequest[] = [
 
 function ActiveProjects() {
     return ( 
-         <div className="w-full min-w-0 rounded-xl bg-white dark:!bg-slate-500 p-3 shadow-md mt-5 ">
+         <div className="w-full min-w-0 rounded-md bg-white dark:!bg-slate-500 p-3 hover:shadow-md mt-5 ">
 
-      {/* Header */}
+  
       <div className="mb-4 flex items-center justify-between">
 
         <div className="flex items-center gap-2">
@@ -68,8 +68,8 @@ function ActiveProjects() {
         </Link>
       </div>
         <div className="w-full overflow-x-auto sidebar-scroll">
-        <table className="w-full min-w-[700px] border-collapse text-left">
-          <thead className="bg-light ">
+        <table className="w-full min-w-full border-collapse text-left">
+          <thead className="bg-light  ">
             <tr>
               {[
                 "Project Name",
@@ -79,7 +79,7 @@ function ActiveProjects() {
               ].map((heading) => (
                 <th
                   key={heading}
-                  className="px-4 py-3 text-sm font-semibold text-gray-900 "
+                  className="px-4 py-3  text-sm font-semibold text-gray-900 "
                 >
                   {heading}
                 </th>
@@ -93,7 +93,7 @@ function ActiveProjects() {
                 key={request.id}
                 className="border-b border-gray-100 last:border-0"
               >
-                {/* Employee */}
+               
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-light dark:!bg-slate-200 dark:!text-gray-800 text-sm font-semibold text-primary">
@@ -106,17 +106,28 @@ function ActiveProjects() {
                   </div>
                 </td>
 
-                {/* Leave Type */}
+              
                 <td className="px-4 py-3 text-sm text-gray-700 dark:!text-gray-300">
-                  <progress value={request.progress} /> <span>{request.progress}%</span>
+                  {/* <progress value={request.progress} /> <span>{request.progress}%</span> */}
+                   <div  className="flex gap-5">
+      
+      {/* <progress id="file-progress" value={request.progress} max={100} className="rounded-md"/> */}
+      <progress
+  id="file-progress"
+  value={request.progress}
+  max={100}
+  className="w-full h-3 rounded-md overflow-hidden [&::-webkit-progress-bar]:bg-gray-200 [&::-webkit-progress-bar]:rounded-md [&::-webkit-progress-value]:bg-blue-600 [&::-webkit-progress-value]:rounded-md [&::-moz-progress-bar]:bg-blue-600 [&::-moz-progress-bar]:rounded-md"
+/>
+      <span>{request.progress}%</span>
+    </div>
                 </td>
 
-                {/* Dates */}
+              
                 <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700 dark:!text-gray-300">
                   {request.dates}
                 </td>
 
-                {/* Status */}
+            
             
 
                 

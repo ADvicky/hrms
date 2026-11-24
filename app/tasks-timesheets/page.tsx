@@ -607,6 +607,13 @@ import Box from "@mui/material/Box";
 import { TableVirtuoso } from "react-virtuoso";
 import type { TableComponents } from "react-virtuoso";
 
+import TablePagination from "@mui/material/TablePagination";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+
 import {
   Pencil,
   Check,
@@ -709,7 +716,7 @@ const VirtuosoTableComponents: TableComponents<Data> = {
     )
   ),
 
-  // TableRow,
+
 
     TableRow: (props) => (
     <TableRow
@@ -762,6 +769,10 @@ function fixedHeaderContent() {
 export default function TaskTimesheet() {
   const [rows, setRows] = useState<Data[]>(initialRows);
 
+
+  const [page, setPage] = useState(0);
+const [rowsPerPage, setRowsPerPage] = useState(5);
+
   const [nextId, setNextId] = useState(3);
 
   const [editingId, setEditingId] = useState<number | null>(
@@ -772,26 +783,51 @@ export default function TaskTimesheet() {
 
   const [isNewRow, setIsNewRow] = useState(false);
 
-  // Project dropdown options
+  
   const [projects, setProjects] = useState<string[]>([
     "HR Management",
     "DNS Management",
   ]);
 
-  // Add Project dialog
+
   const [showAddProject, setShowAddProject] =
     useState(false);
 
   const [newProject, setNewProject] = useState("");
 
-  // 7. Edit an existing row
+  
+  const handleChangePage = (
+  event: React.MouseEvent<HTMLButtonElement> | null,
+  newPage: number
+) => {
+  setPage(newPage);
+};
+
+const handleChangeRowsPerPage = (
+  event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => {
+  setRowsPerPage(parseInt(event.target.value, 10));
+  setPage(0);
+};
+
+const safePage = Math.min(
+  page,
+  Math.max(0, Math.ceil(rows.length / rowsPerPage) - 1)
+);
+
+const paginatedRows = rows.slice(
+  safePage * rowsPerPage,
+  safePage * rowsPerPage + rowsPerPage
+);
+
+
   const handleEdit = (row: Data) => {
     setEditingId(row.id);
     setDraft({ ...row });
     setIsNewRow(false);
   };
 
-  // 8. Save row changes
+  
   const handleSave = () => {
     if (!draft) return;
 
@@ -831,7 +867,7 @@ export default function TaskTimesheet() {
     setIsNewRow(false);
   };
 
-  // 9. Cancel editing
+
   const handleCancel = () => {
     if (isNewRow && editingId !== null) {
       setRows((prev) =>
@@ -844,14 +880,14 @@ export default function TaskTimesheet() {
     setIsNewRow(false);
   };
 
-  // 10. Delete a row
+
   const handleDelete = (id: number) => {
     setRows((prev) =>
       prev.filter((row) => row.id !== id)
     );
   };
 
-  // 11. Add a new row
+
   const handleAddRow = () => {
     const newRow: Data = {
       id: nextId,
@@ -890,10 +926,10 @@ export default function TaskTimesheet() {
       return;
     }
 
-    // Add new project to dropdown options
+    
     setProjects((prev) => [...prev, name]);
 
-    // Automatically select the new project
+    
     if (draft) {
       setDraft((prev) =>
         prev ? { ...prev, projectName: name } : prev
@@ -904,7 +940,7 @@ export default function TaskTimesheet() {
     setShowAddProject(false);
   };
 
-  // 13. Update draft fields
+  
   const updateDraft = <K extends keyof Data>(
     field: K,
     value: Data[K]
@@ -914,32 +950,71 @@ export default function TaskTimesheet() {
     );
   };
 
-  // 14. Render table rows
+  
   const rowContent = (_index: number, row: Data) => {
     const isEditing = editingId === row.id;
 
     return (
       <>
-        {/* Date */}
-        <TableCell>
+        {/* <TableCell>
           {isEditing && draft ? (
             <TextField
               type="date"
               size="small"
+              
               fullWidth
               value={draft.date}
               onChange={(e) =>
                 updateDraft("date", e.target.value)
               }
                className="dark:text-gray-300 dark:bg-gray-300"
+               
             />
           ) : (
             row.date
           )}
-        </TableCell>
+        </TableCell> */}
 
-        {/* Login Time */}
-        <TableCell>
+<TableCell>
+  {isEditing && draft ? (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+        value={draft.date ? dayjs(draft.date) : null}
+        onChange={(newDate) =>
+          updateDraft(
+            "date",
+            newDate ? newDate.format("YYYY-MM-DD") : ""
+          )
+        }
+        slotProps={{
+          textField: {
+            size: "small",
+            fullWidth: true,
+          },
+          day: {
+            sx: {
+              "&.Mui-selected": {
+                backgroundColor: "#16a34a",
+                color: "#ffffff",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#16a34a",
+              },
+              "&.Mui-selected:focus": {
+                backgroundColor: "#16a34a",
+              },
+            },
+          },
+        }}
+      />
+    </LocalizationProvider>
+  ) : (
+    row.date
+  )}
+</TableCell>
+
+       
+        {/* <TableCell>
           {isEditing && draft ? (
             <TextField
               type="time"
@@ -954,10 +1029,57 @@ export default function TaskTimesheet() {
           ) : (
             row.loginTime
           )}
-        </TableCell>
-
-        {/* Logout Time */}
-        <TableCell>
+        </TableCell> */}
+<TableCell>
+  {isEditing && draft ? (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <TimePicker
+        ampm={true}
+        format="HH:mm"
+        value={
+          draft.loginTime
+            ? dayjs(`2000-01-01T${draft.loginTime}`)
+            : null
+        }
+        onChange={(newValue) => {
+          updateDraft(
+            "loginTime",
+            newValue && newValue.isValid()
+              ? newValue.format("HH:mm")
+              : ""
+          );
+        }}
+        slotProps={{
+          textField: {
+            size: "small",
+            fullWidth: true,
+            sx: {
+              backgroundColor: "#ffff",
+              "& .MuiPickersInputBase-root": {
+                color: "#00000",
+              },
+            },
+          },
+          desktopPaper: {
+            sx: {
+              "& .MuiMenuItem-root.Mui-selected": {
+                backgroundColor: "#16a34a",
+                color: "#ffffff",
+              },
+              "& .MuiMenuItem-root.Mui-selected:hover": {
+                backgroundColor: "#15803d",
+              },
+            },
+          },
+        }}
+      />
+    </LocalizationProvider>
+  ) : (
+    row.loginTime
+  )}
+</TableCell>
+       
+        {/* <TableCell>
           {isEditing && draft ? (
             <TextField
               type="time"
@@ -972,9 +1094,58 @@ export default function TaskTimesheet() {
           ) : (
             row.logoutTime
           )}
-        </TableCell>
+        </TableCell> */}
 
-        {/* Project Name Dropdown */}
+
+<TableCell>
+  {isEditing && draft ? (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <TimePicker
+        ampm={true}
+        format="HH:mm"
+        value={
+          draft.logoutTime
+            ? dayjs(`2000-01-01T${draft.logoutTime}`)
+            : null
+        }
+        onChange={(newValue) => {
+          updateDraft(
+            "logoutTime",
+            newValue && newValue.isValid()
+              ? newValue.format("HH:mm")
+              : ""
+          );
+        }}
+        slotProps={{
+          textField: {
+            size: "small",
+            fullWidth: true,
+            sx: {
+              backgroundColor: "#ffff",
+              "& .MuiPickersInputBase-root": {
+                color: "#00000",
+              },
+            },
+          },
+          desktopPaper: {
+            sx: {
+              "& .MuiMenuItem-root.Mui-selected": {
+                backgroundColor: "#16a34a",
+                color: "#ffffff",
+              },
+              "& .MuiMenuItem-root.Mui-selected:hover": {
+                backgroundColor: "#15803d",
+              },
+            },
+          },
+        }}
+      />
+    </LocalizationProvider>
+  ) : (
+    row.loginTime
+  )}
+</TableCell>
+       
         <TableCell>
           {isEditing && draft ? (
             <Box sx={{ display: "flex", gap: 1 }}>
@@ -1018,7 +1189,7 @@ export default function TaskTimesheet() {
           )}
         </TableCell>
 
-        {/* Task Name */}
+     
         <TableCell>
           {isEditing && draft ? (
             <TextField
@@ -1039,7 +1210,6 @@ export default function TaskTimesheet() {
           )}
         </TableCell>
 
-        {/* Status Dropdown */}
         <TableCell>
           {isEditing && draft ? (
             <Select
@@ -1069,7 +1239,7 @@ export default function TaskTimesheet() {
           )}
         </TableCell>
 
-        {/* Actions */}
+    
         <TableCell>
           {isEditing ? (
             <Box sx={{ display: "flex" }}>
@@ -1116,7 +1286,7 @@ export default function TaskTimesheet() {
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-4 p-6">
-      {/* Header */}
+  
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold dark:text-gray-300">
           Time Sheets
@@ -1146,8 +1316,8 @@ export default function TaskTimesheet() {
 (
   <div>
 
-   {/* Table */}
-      <Paper
+
+      {/* <Paper
         sx={{
           height: 565,
           width: "100%",
@@ -1168,7 +1338,56 @@ export default function TaskTimesheet() {
           fixedHeaderContent={fixedHeaderContent}
           itemContent={rowContent}
         />
-      </Paper>
+      </Paper> */}
+
+
+
+<Paper
+  sx={{
+    height: 565,
+    width: "100%",
+    minWidth: 0,
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+  }}
+  className="!bg-white dark:!bg-gray-800"
+>
+  
+  <div className="min-h-0 flex-1">
+    <TableVirtuoso
+      style={{ height: "100%" }}
+      data={paginatedRows}
+      computeItemKey={(_index, row) => row.id}
+      components={VirtuosoTableComponents}
+      fixedHeaderContent={fixedHeaderContent}
+      itemContent={rowContent}
+    />
+  </div>
+
+
+  <TablePagination
+    component="div"
+    count={rows.length}
+    page={safePage}
+    onPageChange={handleChangePage}
+    rowsPerPage={rowsPerPage}
+    onRowsPerPageChange={handleChangeRowsPerPage}
+    rowsPerPageOptions={[5, 10, 25]}
+    className="dark:!text-gray-100"
+    sx={{
+      borderTop: "1px solid",
+      borderColor: "divider",
+      flexShrink: 0,
+      "& .MuiTablePagination-selectIcon": {
+        color: "inherit",
+      },
+      "& .MuiTablePagination-actions button": {
+        color: "inherit",
+      },
+    }}
+  />
+</Paper>
 
       
       <Dialog

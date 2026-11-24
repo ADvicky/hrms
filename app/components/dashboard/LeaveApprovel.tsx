@@ -59,7 +59,7 @@ function LeaveApprovel() {
     );
   }
     return ( 
-         <div className="w-full min-w-0 rounded-xl bg-white dark:bg-slate-500 p-3 shadow-md mt-5  ">
+         <div className="w-full min-w-0 rounded-md bg-white dark:bg-slate-500 p-3 hover:shadow-md mt-5  ">
 
     
       <div className="mb-4 flex items-center justify-between">

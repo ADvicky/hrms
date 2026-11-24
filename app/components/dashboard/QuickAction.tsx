@@ -56,7 +56,7 @@ const quickActions = [
 function QuickActions() {
 
     return ( 
-    <div className="w-full min-w-0 rounded-xl bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 shadow-md  ">
+    <div className="w-full min-w-0 rounded-xl bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 ">
 
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
@@ -94,7 +94,7 @@ function QuickActions() {
                 gap-2 rounded-xl
                 bg-light dark:!bg-slate-200 p-3 text-center
                 transition-colors duration-200
-                hover:bg-accent dark:hover:!bg-slate-300
+                hover:bg-accent hover:shadow-md dark:hover:!bg-slate-300
               "
             >
               <Icon

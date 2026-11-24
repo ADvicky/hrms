@@ -81,9 +81,9 @@ function KpCard() {
         return (
           <div
             key={card.id}
-            className="flex min-h-25 min-w-0 w-full flex-col justify-between rounded-xl bg-white dark:!bg-slate-500 p-2 shadow-md"
+            className="flex min-h-25 min-w-0 w-full flex-col justify-between rounded-md bg-white dark:!bg-slate-500 p-2 hover:shadow-md"
           >
-            {/* Icon */}
+         
             <div className="flex gap-2">
             <div className="rounded-lg bg-light dark:!bg-slate-500 p-2 w-fit">
               <Icon size={24} className="text-primary" />
@@ -93,7 +93,7 @@ function KpCard() {
     </p>
             </div>
 
-            {/* Value */}
+           
             {/* <div className="flex ">
             <div className="flex flex-col">
             <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:!text-gray-300">
@@ -153,7 +153,6 @@ function KpCard() {
             </div> */}
             <div className="flex w-full items-end justify-between gap-3">
 
-  {/* Left Section */}
   <div className="flex min-w-0 flex-col">
     <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-gray-300">
       {card.value}
@@ -162,10 +161,10 @@ function KpCard() {
     
   </div>
 
-  {/* Right Section */}
+  
   <div className="flex shrink-0 flex-col items-end px-4">
 
-    {/* Trend Percentage */}
+   
     <div
       className={`flex items-center gap-1 text-sm font-semibold ${
         card.trend === "up"
@@ -182,7 +181,7 @@ function KpCard() {
       {card.percentage}%
     </div>
 
-    {/* SVG Graph */}
+   
     <svg
       viewBox="0 0 140 40"
       className="block h-12 w-28 shrink-0"

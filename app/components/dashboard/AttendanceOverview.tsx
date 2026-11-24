@@ -156,12 +156,12 @@ export default function AttendanceOverview() {
 <div className="px-2">
   <div
     className="
-      w-full rounded-md p-3 shadow-md
+      w-full rounded-md p-3 hover:shadow-md
       bg-white text-gray-900
       dark:!bg-slate-500 dark:!text-gray-100
     "
   >
-    {/* Header */}
+
     <div className="mb-5 flex items-center justify-between gap-3">
       <h2
         className="
@@ -177,7 +177,7 @@ export default function AttendanceOverview() {
         Attendance Overview
       </h2>
 
-      {/* Month Dropdown */}
+     
       <select
         className="
           rounded-lg border p-2 text-sm
@@ -195,10 +195,8 @@ export default function AttendanceOverview() {
 
     <div className="grid grid-cols-1 items-center gap-4 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)]">
 
-      {/* Donut Chart + Legend */}
       <div className="flex min-w-0 flex-col items-center gap-3 sm:flex-row">
 
-        {/* Donut Chart */}
         <div className="relative h-52 w-52 shrink-0">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -242,7 +240,7 @@ export default function AttendanceOverview() {
           </div>
         </div>
 
-        {/* Legend */}
+        
         <div className="w-fit space-y-3">
           {attendanceData.map((item) => (
             <div
@@ -268,10 +266,10 @@ export default function AttendanceOverview() {
         </div>
       </div>
 
-      {/* Vertical Divider */}
+      
       <div className="hidden h-52 w-px bg-gray-300 dark:!bg-slate-600 lg:block" />
 
-      {/* Bar Chart */}
+   
       <div className="h-64 min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={weeklyData}>

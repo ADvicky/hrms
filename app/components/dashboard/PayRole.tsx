@@ -28,7 +28,7 @@ const payrollData = [
 
 function PayRole() {
     return ( 
-        <div className="w-full min-w-0 rounded-md bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 shadow-md  ">
+        <div className="w-full min-w-0 rounded-md bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 hover:shadow-md  ">
 
       
       <div className="mb-4 flex items-center justify-between">

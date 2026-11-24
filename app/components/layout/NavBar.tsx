@@ -1,9 +1,10 @@
 "use client";
 
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import ThemeToggle from "@/app/components/ThemeToggle";
 import Image from "next/image";
 import {  Search ,ChevronDown, Bell, CircleQuestionMark}  from "lucide-react";
+import { useRouter } from "next/navigation";
  
 
 type NavBarProps = {
@@ -17,7 +18,33 @@ export default function Navbar({
   email
 }: NavBarProps) {
 
+  const [popup,setPopup]= useState(false)
+ const pop = useRef<HTMLDivElement>(null);
+
+const router = useRouter();
+
     // const session = await auth()
+
+  useEffect(() => {
+
+  const handleClickOutside = (event: MouseEvent) => {
+
+    if (
+      pop.current &&
+      !pop.current.contains(event.target as Node)
+    ) {
+      setPopup(false);
+    }
+
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+
+}, []);
 
 
 const navname = 
@@ -83,7 +110,7 @@ const emailName = displayName
   <CircleQuestionMark className="text-black dark:text-white w-6 h-6" />
 
   <div className="flex items-center gap-2">
-    <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-medium">
+    <div className="w-9 h-9 rounded-full bg-secondary text-white flex items-center justify-center font-medium">
       {navname?.toUpperCase()}
     </div>
     
@@ -93,9 +120,39 @@ const emailName = displayName
         {role}
       </span>
     </div>
+<div className="relative" ref={pop}>
 
+  <button onClick={() => setPopup((prev) => !prev)}>
     <ChevronDown className="text-black dark:text-white w-4 h-4" />
+  </button>
+
+  {popup && (
+    <div className="absolute z-50 flex flex-col
+      bg-white dark:bg-gray-800
+      w-[180px] right-0 top-full mt-4
+      gap-1 p-2 rounded-lg shadow-lg border border-gray-200">
+
+      <button
+        className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+        onClick={() => {setPopup(false),router.replace("/employee-profile");}}
+      >
+        My profile
+      </button>
+
+      <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+        My preference
+      </button>
+
+      <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+        Logout
+      </button>
+
+    </div>
+  )}
+
+</div>
   </div>
+ 
 </div>
 
       </div>
