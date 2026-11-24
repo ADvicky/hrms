@@ -123,7 +123,7 @@ const emailName = displayName
 <div className="relative" ref={pop}>
 
   <button onClick={() => setPopup((prev) => !prev)}>
-    <ChevronDown className="text-black dark:text-white w-4 h-4" />
+    <ChevronDown className={`text-black dark:text-white w-4 h-4 ${popup === true ? "rotate-180" :""}`} />
   </button>
 
   {popup && (
