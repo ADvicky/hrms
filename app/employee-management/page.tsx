@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import { Suspense } from "react";
 import { Plus, Search, X } from "lucide-react";
 
 import {
@@ -21,6 +22,8 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
+// import EmployeeDataPage from "../employee-data/page";
 
 type Employee = {
   id: number;
@@ -62,6 +65,7 @@ const initialRows: Employee[] = [
 ];
 
 export default function EmployeeManagement() {
+  const router = useRouter()
   const [employees, setEmployees] =
     React.useState<Employee[]>(initialRows);
 
@@ -131,6 +135,18 @@ export default function EmployeeManagement() {
       ),
     },
   ];
+
+  const handleEmployeeProfile = (
+  id: number|string,
+  fullName: string
+) => {
+  console.log("fullname",fullName);
+  
+  // return <EmployeeData id={id} fullname={fullname} />;
+   router.push(
+    `/employee-data?id=${encodeURIComponent(id)}&fullName=${encodeURIComponent(fullName)}`
+  );
+};
 
   const filteredRows = employees.filter((employee) => {
     const fullName =
@@ -268,7 +284,7 @@ export default function EmployeeManagement() {
       </div>
 
       
-      <Paper
+      {/* <Paper
         elevation={0}
         sx={{
           width: "100%",
@@ -290,6 +306,7 @@ export default function EmployeeManagement() {
               },
             },
           }}
+          onRowClick={handleEmployeeProfile}
           pageSizeOptions={[5, 10, 25]}
           rowHeight={65}
           columnHeaderHeight={65}
@@ -325,7 +342,77 @@ export default function EmployeeManagement() {
             },
           }}
         />
-      </Paper>
+      </Paper> */}
+      <Paper
+  elevation={0}
+  sx={{
+    width: "100%",
+    borderRadius: 3,
+    overflow: "hidden",
+    border: "1px solid",
+    borderColor: "divider",
+  }}
+>
+  <Suspense
+    fallback={
+      <div className="flex items-center justify-center h-[400px]">
+        Loading employees...
+      </div>
+    }
+  >
+    <DataGrid
+      rows={filteredRows}
+      columns={columns}
+      autoHeight
+      initialState={{
+        pagination: {
+          paginationModel: {
+            page: 0,
+            pageSize: 5,
+          },
+        },
+      }}
+      onRowClick={(params) =>{
+        const fullName= `${params.row.firstName} ${params.row.lastName}`
+  handleEmployeeProfile(
+    params.row.id,
+    fullName
+    
+  )}
+}
+      pageSizeOptions={[5, 10, 25]}
+      rowHeight={65}
+      columnHeaderHeight={65}
+      sx={{
+        border: 0,
+
+        "& .MuiDataGrid-columnHeaders": {
+          backgroundColor: "#f1f5f9",
+        },
+
+        "& .MuiDataGrid-columnHeader": {
+          backgroundColor: "#f1f5f9",
+        },
+
+        "& .MuiDataGrid-columnHeaderTitle": {
+          fontWeight: 700,
+          fontSize: "14px",
+        },
+
+        "& .MuiDataGrid-cell": {
+          fontSize: "14px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        },
+
+        "& .MuiDataGrid-row:hover": {
+          backgroundColor: "#f8fafc",
+          cursor: "pointer",
+        },
+      }}
+    />
+  </Suspense>
+</Paper>
 
       <Dialog
         open={open}

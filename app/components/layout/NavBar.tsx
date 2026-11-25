@@ -62,9 +62,9 @@ const emailName = displayName
   : "User";
     
   return (
-    <header className="h-16 bg-background text-black dark:bg-slate-700 dark:text-white
+    <header className="h-16 bg-background text-black dark:bg-slate-700 relative z-30 dark:text-white
                        flex items-center justify-between
-                       px-6 shadow-xl">
+                       px-6 shadow-[0_0_10px_rgba(0,0,0,0.2)]">
                         <div className="flex justify-center items-center  relative">
 
 
@@ -104,12 +104,12 @@ const emailName = displayName
     <div className="w-4 h-4 rounded-full bg-red-600 text-white flex items-center justify-center text-[10px] absolute -right-1 -top-1">
       3
     </div>
-    <Bell className="text-black dark:text-white w-7 h-7" />
+    <Bell className="text-black dark:text-white w-7 h-7 cursor-pointer" onClick={() =>{{setPopup(false),router.replace("/notification");}}}/>
   </div>
 
   <CircleQuestionMark className="text-black dark:text-white w-6 h-6" />
 
-  <div className="flex items-center gap-2">
+  {/* <div className="flex items-center gap-2" onClick={() => setPopup((prev) => !prev)} >
     <div className="w-9 h-9 rounded-full bg-secondary text-white flex items-center justify-center font-medium">
       {navname?.toUpperCase()}
     </div>
@@ -122,8 +122,14 @@ const emailName = displayName
     </div>
 <div className="relative" ref={pop}>
 
-  <button onClick={() => setPopup((prev) => !prev)}>
-    <ChevronDown className={`text-black dark:text-white w-4 h-4 ${popup === true ? "rotate-180" :""}`} />
+  <button onClick={() => setPopup((prev) => !prev)} className="cursor-pointer transition-transform duration-1000 ease-[cubic-bezier(0.65,1,0.85,1,0.45,1)]">
+    <ChevronDown
+    className={`text-black dark:text-white w-4 h-4
+      transition-transform duration-500
+      ease-[cubic-bezier(0.65,1,0.85,1)]
+      ${popup ? "rotate-180" : "rotate-0"}
+    `}
+  />
   </button>
 
   {popup && (
@@ -139,11 +145,11 @@ const emailName = displayName
         My profile
       </button>
 
-      <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700" onClick={() => {setPopup(false)}}>
         My preference
       </button>
 
-      <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"onClick={() => {setPopup(false)}}>
         Logout
       </button>
 
@@ -151,7 +157,79 @@ const emailName = displayName
   )}
 
 </div>
-  </div>
+  </div> */}
+  <div className="relative" ref={pop}>
+
+  {/* Profile trigger */}
+  <button
+    type="button"
+    onClick={() => setPopup((prev) => !prev)}
+    aria-expanded={popup}
+    className="flex items-center gap-2 cursor-pointer text-left"
+  >
+    {/* Profile avatar */}
+    <span className="w-9 h-9 rounded-full bg-secondary text-white flex items-center justify-center font-medium">
+      {navname?.toUpperCase()}
+    </span>
+
+    {/* Profile details */}
+    <span className="flex flex-col">
+      <span className="text-black text-sm dark:text-gray-300 leading-none">
+        {emailName}
+      </span>
+
+      <span className="text-gray-600 dark:text-gray-300 text-[12px] leading-tight capitalize">
+        {role}
+      </span>
+    </span>
+
+    {/* Dropdown icon */}
+    <ChevronDown
+      className={`text-black dark:text-white w-4 h-4
+        transition-transform duration-500
+        ease-[cubic-bezier(0.65,1,0.85,1)]
+        ${popup ? "rotate-180" : "rotate-0"}
+      `}
+    />
+  </button>
+
+  {/* Dropdown content */}
+  {popup && (
+    <div
+      className="absolute z-50 flex flex-col
+        bg-white dark:bg-gray-800
+        w-[180px] right-0 top-full mt-4
+        gap-1 p-2 rounded-lg shadow-lg border border-gray-200"
+    >
+      <button
+        type="button"
+        className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+        onClick={() => {
+          setPopup(false);
+          router.replace("/employee-profile");
+        }}
+      >
+        My profile
+      </button>
+
+      <button
+        type="button"
+        className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+        onClick={() => setPopup(false)}
+      >
+        My preference
+      </button>
+
+      <button
+        type="button"
+        className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+        onClick={() => setPopup(false)}
+      >
+        Logout
+      </button>
+    </div>
+  )}
+</div>
  
 </div>
 

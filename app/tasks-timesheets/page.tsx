@@ -613,6 +613,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import DialogPopup from "@/app/components/Dialog";
+import useDialog from "@/app/hook/useDialog";
 
 import {
   Pencil,
@@ -769,6 +771,20 @@ function fixedHeaderContent() {
 export default function TaskTimesheet() {
   const [rows, setRows] = useState<Data[]>(initialRows);
 
+  const {
+    selectedId,
+    openDialog,
+    closeDialog,
+  } = useDialog<number>();
+
+
+//  const handleDelete = (id: number) => {
+//   setRows((prev) =>
+//     prev.filter((row) => row.id !== id)
+//   );
+
+//   closeDialog();
+// };
 
   const [page, setPage] = useState(0);
 const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -885,6 +901,8 @@ const paginatedRows = rows.slice(
     setRows((prev) =>
       prev.filter((row) => row.id !== id)
     );
+
+     closeDialog();
   };
 
 
@@ -1268,14 +1286,14 @@ const paginatedRows = rows.slice(
                 <Pencil size={18} className="dark:text-gray-300"/>
               </IconButton>
 
-              <IconButton
-                color="error"
-                disabled={editingId !== null}
-                aria-label="Delete row"
-                onClick={() => handleDelete(row.id)}
-              >
-                <Trash2 size={18} />
-              </IconButton>
+      <IconButton
+  color="error"
+  disabled={editingId !== null}
+  aria-label="Delete row"
+  onClick={() => openDialog(row.id)}
+>
+  <Trash2 size={18} />
+</IconButton>
             </Box>
           )}
         </TableCell>
@@ -1388,6 +1406,16 @@ const paginatedRows = rows.slice(
     }}
   />
 </Paper>
+
+<DialogPopup
+  id={selectedId}
+  title="Delete Timesheet"
+  description="Are you sure you want to delete this timesheet?"
+  confirmText="Delete"
+  cancelText="Cancel"
+  onConfirm={handleDelete}
+  onClose={closeDialog}
+/>
 
       
       <Dialog

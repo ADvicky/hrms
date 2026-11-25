@@ -19,7 +19,7 @@ function DocumentCenter() {
 
   return (
     <div className="w-full rounded-2xl bg-[#f5f9f7]
-      dark:bg-gray-900 p-8 flex flex-col gap-4">
+      dark:bg-gray-900 p-8 flex flex-col gap-4 ">
         <div className="self-end p-2">
             <button className="flex gap-2">All <ArrowRight /></button>
         </div>
@@ -101,7 +101,7 @@ function DocumentCenter() {
 
     
       {value === 0 && (
-        <DocumentCentersidemenu search={search} />
+        <DocumentCentersidemenu search={search} nav={true}/>
       )}
 
       {value === 1 && (
