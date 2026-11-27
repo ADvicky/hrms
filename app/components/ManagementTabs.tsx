@@ -22,41 +22,45 @@ function ManagementTabs({
       variant="scrollable"
       scrollButtons="auto"
       aria-label="Management tabs"
-      sx={{
-        minHeight: 42,
-
-        "& .MuiTabs-indicator": {
-          display: "none",
-        },
-
-        "& .MuiTab-root": {
-          textTransform: "none",
+       sx={{
           minHeight: 42,
-          fontSize: "14px",
-          fontWeight: 600,
-          borderRadius: "20px",
-          color: "#64748b",
-          padding: "8px 20px",
-          marginRight: "8px",
-        },
 
-        "& .MuiTab-root.Mui-selected": {
-          backgroundColor: "#d1fae5",
-          color: "#166534",
-          position: "relative",
-
-          "&::after": {
-            content: '""',
-            position: "absolute",
-            bottom: 0,
-            left: "15%",
-            width: "70%",
-            height: "3px",
-            backgroundColor: "#166534",
-            borderRadius: "4px",
+          "& .MuiTabs-indicator": {
+            display: "none",
           },
-        },
-      }}
+
+          "& .MuiTabs-flexContainer": {
+            gap: "8px",
+          },
+
+          "& .MuiTab-root": {
+            textTransform: "none",
+            minHeight: 4,
+            fontSize: "14px",
+            fontWeight: 600,
+            // borderRadius: "10px",
+            color: "#64748b",
+            padding: "5px 20px",
+            
+          },
+
+          "& .MuiTab-root.Mui-selected": {
+  // backgroundColor: "#d1fae5",
+  color: "#166534",
+  position: "relative",
+
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    bottom: 0,
+
+    width: "80%",
+    height: "3px",
+    backgroundColor: "#166534",
+    borderRadius: "4px",
+  },
+},
+        }}
     >
       {tabs.map((tab) => (
         <Tab key={tab} label={tab} />

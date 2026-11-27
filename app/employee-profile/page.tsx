@@ -146,7 +146,7 @@ const handleRemovePhoto = () => {
     items-start
   ">
 
-    <div className="bg-white rounded-md flex flex-col items-center gap-2 p-6 w-full">
+    <div className="bg-white rounded-md dark:!bg-slate-700/50 dark:!text-white flex flex-col items-center gap-2 p-6 w-full">
 
 
   <div className="group relative bg-gray-300 rounded-full w-[120px] h-[120px] shrink-0">
@@ -180,7 +180,7 @@ const handleRemovePhoto = () => {
       />
     )}
 
-    {/* Camera button */}
+
 
     <button
       type="button"
@@ -222,7 +222,7 @@ const handleRemovePhoto = () => {
   >
 
     {profile && (
-      <div className="flex flex-col items-center gap-1 mb-3">
+      <div className="flex flex-col items-center gap-1 mb-3 dark:!text-white ">
 
         <h1 className="text-xl font-black text-center break-words max-w-full">
           {profile.name}
@@ -259,7 +259,7 @@ const handleRemovePhoto = () => {
    
 
     
-    <div className="bg-white rounded-md p-6 h-[600px] min-w-0">
+    <div className="bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/0 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] rounded-md p-6 h-[600px] min-w-0">
             <Tabs
         value={value}
         onChange={handleChange}
@@ -319,18 +319,22 @@ const handleRemovePhoto = () => {
       )}
 
       {value === 1 && (
-        <div className="p-4">My Documents</div>
+        <div className="p-4  dark:!text-white ">My Documents</div>
       )}
 
       {value === 2 && (
-        <div className="p-4">Shared Documents</div>
+        <div className="p-4  dark:!text-white ">Shared Documents</div>
       )}
       {value === 3 && (
-       <div className='pt-10'> 
-        <DocumentCentersidemenu /></div>
-      )}
+  <div className="w-full min-w-0 pt-4">
+    <DocumentCentersidemenu
+      nav={false}
+      embedded={true}
+    />
+  </div>
+)}
       {value === 4 && (
-        <div className="p-4">Shared Documents</div>
+        <div className="p-4  dark:!text-white ">Shared Documents</div>
       )}
 
     </div>

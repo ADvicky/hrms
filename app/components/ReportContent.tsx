@@ -76,72 +76,75 @@ function ReportContent({ category }: ReportContentProps) {
   const filteredData = reportData.slice(-Number(period));
 
   return (
-    <div className="w-full min-w-0 flex flex-col gap-6">
+  <div className="w-full h-full min-w-0 flex flex-col gap-6">
+  <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 dark:!text-white">
 
+    <h2 className="text-lg font-semibold">
+      {report.title}
+    </h2>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <select
+      value={period}
+      onChange={(e) => setPeriod(e.target.value)}
+      className="
+        border border-gray-200 rounded-lg
+        px-3 py-2 text-sm outline-none cursor-pointer
+        dark:bg-gray-800 dark:border-white/15
+      "
+    >
+      <option value="6">Last 6 Months</option>
+      <option value="3">Last 3 Months</option>
+      <option value="1">Last Month</option>
+    </select>
 
-        <h2 className="text-lg font-semibold">
-          {report.title}
-        </h2>
+  </div>
 
-        <select
-          value={period}
-          onChange={(e) => setPeriod(e.target.value)}
-          className="border border-gray-200 rounded-lg
-          px-3 py-2 text-sm outline-none cursor-pointer"
-        >
-          <option value="6">Last 6 Months</option>
-          <option value="3">Last 3 Months</option>
-          <option value="1">Last Month</option>
-        </select>
+ 
+  <div className="w-full flex-1 min-h-0 flex items-center justify-center">
 
-      </div>
+    <div className="w-full max-w-full h-[280px] min-w-0">
 
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={filteredData}>
 
-      <div className="w-full h-[280px] min-w-0">
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+            stroke="#e5e7eb"
+          />
 
-        <ResponsiveContainer width="100%" height="100%">
+          <XAxis
+            dataKey="month"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 12 }}
+          />
 
-          <BarChart data={filteredData}>
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 12 }}
+            unit={report.unit}
+            width={40}
+          />
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-              vertical={false}
-              stroke="#e5e7eb"
-            />
+          <Tooltip cursor={false} />
 
-            <XAxis
-              dataKey="month"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 12 }}
-            />
+          <Bar
+            dataKey={report.dataKey}
+            fill="#22a35a"
+            radius={[5, 5, 0, 0]}
+            maxBarSize={40}
+          />
 
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 12 }}
-              unit={report.unit}
-              width={40}
-            />
-
-            <Tooltip />
-
-            <Bar
-              dataKey={report.dataKey}
-              fill="#22a35a"
-              radius={[5, 5, 0, 0]}
-              maxBarSize={40}
-            />
-
-          </BarChart>
-
-        </ResponsiveContainer>
-
-      </div>
+        </BarChart>
+      </ResponsiveContainer>
 
     </div>
+
+  </div>
+
+</div>
   );
 }
 

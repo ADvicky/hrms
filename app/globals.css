@@ -1,61 +1,66 @@
-/* 
 @import "tailwindcss";
 
-:root {
-  --background: #F4F8F4;
-  --foreground: #171717;
-}
-
-@theme {
-  --color-primary: #23834D;
-  --color-accent: #65A879;
-  --color-light: #DDEFE2;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */
-
-
-
-@import "tailwindcss";
-
+/* ========================================
+   DARK MODE CONFIGURATION
+======================================== */
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+
+/* ========================================
+   TAILWIND THEME COLORS
+======================================== */
 
 @theme {
   --color-primary: #173F32;
   --color-secondary: #23834D;
   --color-accent: #65A879;
   --color-light: #DDEFE2;
-  --color-background: #F4F8F4;
 }
 
+
+/* ========================================
+   LIGHT THEME VARIABLES
+======================================== */
+
 :root {
+
+  /* Application colors */
+
+  --background: #F4F8F4;
+  --foreground: #171717;
+
+
+  /* Status colors */
+
+  --destructive: 0 69% 67%;
+  --destructive-foreground: 0 0% 15%;
+
+  --success: 174 39% 52%;
+  --success-foreground: 0 0% 15%;
+
+  --warning: 32 74% 63%;
+  --warning-foreground: 0 0% 15%;
+
+
+  /* Payroll chart */
+
   --payroll-chart-color: #23834d;
   --payroll-tooltip-bg: #ffffff;
   --payroll-tooltip-text: #111827;
   --payroll-tooltip-border: #e5e7eb;
-}
+  --payroll-grid: #e5e7eb;
+  --payroll-axis: #4b5563;
 
-.dark {
-  --payroll-chart-color: #65a879;
-  --payroll-tooltip-bg: #1f2937;
-  --payroll-tooltip-text: #f9fafb;
-  --payroll-tooltip-border: #4b5563;
-}
 
-:root {
+  /* Attendance chart */
+
+  --attendance-grid: #e5e7eb;
+  --attendance-axis: #4b5563;
+
+
+  /* Attendance bar colors */
+
   --bar-1: #23834d;
   --bar-2: #3b82f6;
   --bar-3: #f59e0b;
@@ -63,9 +68,61 @@ body {
   --bar-5: #ef4444;
   --bar-6: #06b6d4;
   --bar-7: #ec4899;
+
+
+  /* MUI table colors */
+
+  --mui-table-bg: #ffffff;
+  --mui-table-header: #f1f5f9;
+  --mui-table-text: #111827;
+  --mui-table-hover: #f8fafc;
+  --mui-table-border: #e5e7eb;
+
 }
 
+
+/* ========================================
+   DARK THEME VARIABLES
+======================================== */
+
 .dark {
+
+  /* Application colors */
+
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+
+
+  /* Status colors */
+
+  --destructive: 0 75% 72%;
+  --destructive-foreground: 0 0% 10%;
+
+  --success: 174 50% 65%;
+  --success-foreground: 0 0% 10%;
+
+   --warning: 32 74% 63%;
+  --warning-foreground: 0 0% 10%;
+
+
+  /* Payroll chart */
+
+  --payroll-chart-color: #65a879;
+  --payroll-tooltip-bg: #1f2937;
+  --payroll-tooltip-text: #f9fafb;
+  --payroll-tooltip-border: #4b5563;
+  --payroll-grid: #475569;
+  --payroll-axis: #e2e8f0;
+
+
+  /* Attendance chart */
+
+  --attendance-grid: #475569;
+  --attendance-axis: #e2e8f0;
+
+
+  /* Attendance bar colors */
+
   --bar-1: #65a879;
   --bar-2: #60a5fa;
   --bar-3: #fbbf24;
@@ -73,31 +130,91 @@ body {
   --bar-5: #f87171;
   --bar-6: #22d3ee;
   --bar-7: #f472b6;
+
+
+  /* MUI table colors */
+
+  --mui-table-bg: #1e293b;
+  --mui-table-header: #334155;
+  --mui-table-text: #e2e8f0;
+  --mui-table-hover: #334155;
+  --mui-table-border: rgba(255, 255, 255, 0.15);
+
 }
 
-html,
-body {
-  margin: 0;
-  min-height: 100%;
-  background-color: #F4F8F4;
+
+/* ========================================
+   REGISTER TAILWIND UTILITIES
+======================================== */
+
+@theme inline {
+
+  /* Application colors */
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+
+  /* Warning */
+
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+
+
+  /* Success */
+
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+
+
+  /* Destructive */
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+
+  /* Fonts */
+
+  --font-sans: var(--font-roboto), Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
 }
 
 
-Sidebar scrollbar
+
+
+@layer base {
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  body {
+    font-family: var(--font-roboto, Arial), sans-serif;
+  }
+
+}
+
+
 .sidebar-scroll {
   overflow-y: auto;
   overflow-x: auto;
 
-  /* Reserve the same space on BOTH sides so content stays centered
-     and never moves when the scrollbar appears */
   scrollbar-gutter: stable both-edges;
 }
 
-/* Chrome, Edge, Safari: custom scrollbar with a fixed width */
+
+/* Chrome, Edge and Safari */
+
 @supports selector(::-webkit-scrollbar) {
+
   .sidebar-scroll::-webkit-scrollbar {
     width: 6px;
-    height:6px
+    height: 6px;
   }
 
   .sidebar-scroll::-webkit-scrollbar-track {
@@ -112,10 +229,14 @@ Sidebar scrollbar
   .sidebar-scroll:hover::-webkit-scrollbar-thumb {
     background: #65A879;
   }
+
 }
 
-/* Firefox only */
+
+/* Firefox and other supported browsers */
+
 @supports not selector(::-webkit-scrollbar) {
+
   .sidebar-scroll {
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
@@ -124,4 +245,5 @@ Sidebar scrollbar
   .sidebar-scroll:hover {
     scrollbar-color: #65A879 transparent;
   }
+
 }

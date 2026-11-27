@@ -31,7 +31,7 @@ function InformationRow({
 }: InformationRowProps) {
 
   const inputClass =
-    "w-full min-w-0 border border-gray-300 rounded-md px-2 py-1 outline-none focus:border-green-600";
+    "w-full min-w-0 border border-gray-300 dark:!text-white rounded-md dark:!border dark:!border-white/15 px-2 py-1 outline-none focus:border-green-600";
 
   return (
     <div
@@ -42,7 +42,7 @@ function InformationRow({
       }`}
     >
 
-      <span className="text-gray-500">
+      <span className="text-gray-500 dark:!text-white">
         {label}
       </span>
 
@@ -140,17 +140,17 @@ const updateEmployee = (
   }));
 };
 const handleSave = () => {
-  // Update the original employee information
+  
   setEmployee({ ...draft });
 
-  // Exit edit mode
+ 
   onCloseEdit();
 };
 const handleCancel = () => {
-  // Restore the original information
+  
   setDraft({ ...employee });
 
-  // Exit edit mode
+  
   onCloseEdit();
 };
 
@@ -158,18 +158,39 @@ const displayEmployee = edit ? draft : employee;
 
 
   return (
-    <div className="w-full min-w-0 p-2 md:pt-10">
+    <div className="w-full min-w-0 p-2 md:pt-6">
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+  <div className="
+    grid
+    grid-cols-1
+    xl:grid-cols-2
+    gap-4
+    items-stretch
+    auto-rows-auto
+  ">
 
 
-        <div className="flex flex-col gap-4 bg-white rounded-md shadow-[0_0_10px_rgba(0,0,0,0.12)] p-4 min-w-0 min-h-[400px]">
+      <div className="
+  flex flex-col
+  gap-6
+  w-full min-w-0
+  min-h-[380px]
+  xl:min-h-[480px]
+  bg-white
+  rounded-md
+  p-4 md:p-6
+  shadow-[0_0_10px_rgba(0,0,0,0.12)]
+  dark:!border
+  dark:!border-white/15
+  dark:!bg-slate-700/50
+  dark:!text-white
+">
 
-          <h1 className="text-xl font-semibold">
-            Personal Information
-          </h1>
+  <h1 className="text-xl font-semibold shrink-0">
+    Personal Information
+  </h1>
 
-          <div className="flex flex-col gap-6 pt-5">
+  <div className="flex flex-col flex-1 justify-evenly gap-4">
 
             <InformationRow
               label="Full Name"
@@ -232,20 +253,33 @@ const displayEmployee = edit ? draft : employee;
 
 
        
+<div className="
+  flex flex-col
+  gap-6
+  w-full min-w-0
+  min-h-[380px]
+  xl:min-h-[480px]
+  bg-white
+  rounded-md
+  p-4 md:p-6
+  shadow-[0_0_10px_rgba(0,0,0,0.12)]
+  dark:!border
+  dark:!border-white/15
+  dark:!bg-slate-700/50
+  dark:!text-white
+">
 
-        <div className="flex flex-col gap-4 bg-white rounded-md shadow-[0_0_10px_rgba(0,0,0,0.12)] p-4 min-w-0 min-h-[400px]">
+  <h1 className="text-xl font-semibold shrink-0">
+    Employment Information
+  </h1>
 
-          <h1 className="text-xl font-semibold">
-            Employment Information
-          </h1>
-
-          <div className="flex flex-col gap-6 pt-5">
+  <div className="flex flex-col flex-1 justify-evenly gap-4">
 
             <InformationRow
               label="Department"
               labelWidth="employment"
             //   value={employee.department}
-              value={displayEmployee.address}
+               value={displayEmployee.department}
               edit={edit}
               options={[
                 "HR",
@@ -324,7 +358,7 @@ const displayEmployee = edit ? draft : employee;
     <button
       type="button"
       onClick={handleCancel}
-      className="w-full max-w-32 p-2 border rounded-md"
+      className="w-full max-w-32 p-2 dark:!bg-slate-200 border rounded-md cursor-pointer"
     >
       Cancel
     </button>
@@ -332,7 +366,7 @@ const displayEmployee = edit ? draft : employee;
     <button
       type="button"
       onClick={handleSave}
-      className="w-full max-w-32 p-2 bg-secondary text-white rounded-md"
+      className="w-full max-w-32 p-2 bg-secondary text-white rounded-md cursor-pointer"
     >
       Save
     </button>

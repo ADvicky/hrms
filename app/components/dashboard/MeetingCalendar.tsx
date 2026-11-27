@@ -51,12 +51,12 @@ export default function MeetingCalendar() {
   return (
     <div
   className="
-    w-full max-w-sm rounded-2xl p-5 hover:shadow-md
+    w-full max-w-sm rounded-md p-3  hover:shadow-md
     bg-white text-gray-900
-    dark:!bg-slate-500 dark:!text-gray-100
+    dark:!border dark:!border-white/15 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!bg-slate-700/20
   "
 >
-  <DayPicker
+  {/* <DayPicker
     mode="single"
     selected={selected}
     onSelect={(date) => {
@@ -67,9 +67,14 @@ export default function MeetingCalendar() {
     showOutsideDays={false}
     today={today || new Date(2026)}
     classNames={{
-      root: "w-full",
+      root: "w-full ",
 
       month: "w-full",
+          caption_label: `
+      text-lg font-semibold
+      text-gray-900
+      dark:!text-white 
+    `,
 
       month_grid: "w-full border-collapse",
 
@@ -95,14 +100,111 @@ export default function MeetingCalendar() {
         dark:!text-green-400
       `,
     }}
-  />
+  /> */}
 
+{/* <DayPicker
+  mode="single"
+  selected={selected}
+  onSelect={(date) => {
+    if (date) setSelected(date);
+  }}
+  month={month}
+  onMonthChange={setMonth}
+  showOutsideDays={false}
+  today={today || new Date()}
+  classNames={{
+    root: "w-full",
 
+    month: "w-full",
+
+    caption_label: `
+      text-lg font-semibold
+      text-gray-900
+      dark:!text-white
+    `,
+
+    month_grid: "w-full border-collapse",
+
+    // Weekday names
+    // weekday: `
+    //   text-sm font-medium
+    //   text-gray-600
+    //   dark:!text-gray-300
+    // `,
+    // month_grid: "w-full table-fixed border-collapse",
+
+weekday: `
+
+  text-center
+  text-sm font-medium
+  text-gray-600
+  dark:!text-gray-300
+`,
+
+day: `
+  text-center align-middle p-2 
+`,
+
+day_button: `
+  mx-auto flex size-4 w-[25px]
+  items-center justify-center
+  rounded-full
+  text-gray-900
+  hover:bg-green-100
+  dark:!text-gray-100
+  dark:hover:!bg-slate-600
+`,
+
+    // Navigation arrow icons
+    chevron: `
+      !fill-gray-700
+      dark:!fill-white
+    `,
+
+    // Previous month button
+    button_previous: `
+      rounded-md
+      hover:bg-gray-100
+      dark:hover:!bg-slate-600
+    `,
+
+    // Next month button
+    button_next: `
+      rounded-md
+      hover:bg-gray-100
+      dark:hover:!bg-slate-600
+    `,
+
+    // day_button: `
+    //    mx-auto flex size-7
+    //   items-center justify-center
+    //   rounded-full
+    //   text-gray-900
+    //   hover:bg-green-100
+    //   dark:!text-gray-100
+    //   dark:hover:!bg-slate-600
+      
+    // `,
+
+    selected: `
+      [&>button]:!bg-green-700
+      [&>button]:!text-white
+      dark:[&>button]:!bg-green-600
+      dark:[&>button]:!text-white
+    `,
+
+    today: `
+      [&>button]:font-bold
+      [&>button]:!text-green-700
+      dark:[&>button]:!text-green-400
+    `,
+  }}
+/> */}
   <div
     className="
-      mt-5 rounded-xl p-4
+    rounded-xl p-6
       bg-green-50
-      dark:!bg-slate-700
+      dark:!bg-gray-800 dark:!text-white 
     "
   >
     {selectedMeetings.length > 0 ? (
@@ -114,7 +216,8 @@ export default function MeetingCalendar() {
           <p
             className="
               font-semibold text-gray-900
-              dark:!text-gray-100
+            dark:!bg-gray-800 dark:!text-white 
+
             "
           >
             {meeting.title}
@@ -123,7 +226,8 @@ export default function MeetingCalendar() {
           <p
             className="
               text-sm text-gray-600
-              dark:!text-gray-300
+            dark:!bg-gray-800 dark:!text-white 
+
             "
           >
             {meeting.time}
@@ -134,7 +238,7 @@ export default function MeetingCalendar() {
       <p
         className="
           text-sm text-gray-600
-          dark:!text-gray-300
+          dark:!bg-gray-800 dark:!text-white 
         "
       >
         No meetings scheduled.

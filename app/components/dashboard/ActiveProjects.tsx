@@ -46,13 +46,13 @@ const initialRequests: LeaveRequest[] = [
 
 function ActiveProjects() {
     return ( 
-         <div className="w-full min-w-0 rounded-md bg-white dark:!bg-slate-500 p-3 hover:shadow-md mt-5 ">
+         <div className="w-full min-w-0 rounded-md dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 p-3 hover:shadow-md mt-2 ">
 
   
       <div className="mb-4 flex items-center justify-between">
 
         <div className="flex items-center gap-2">
-         <Image src={"/briefcase.png"} alt="briefcase" height={100} width={100} className="w-6 h-6"/>
+         {/* <Image src={"/briefcase.png"} alt="briefcase" height={100} width={100} className="w-6 h-6"/> */}
 
           <h2 className="text-lg font-bold text-gray-900 dark:!text-gray-300">
             Active Projects
@@ -68,7 +68,7 @@ function ActiveProjects() {
         </Link>
       </div>
         <div className="w-full overflow-x-auto sidebar-scroll">
-        <table className="w-full min-w-full border-collapse text-left">
+        <table className="w-full min-w-full border-collapse text-left dark:!border dark:!border-white/15">
           <thead className="bg-light  ">
             <tr>
               {[
@@ -79,7 +79,7 @@ function ActiveProjects() {
               ].map((heading) => (
                 <th
                   key={heading}
-                  className="px-4 py-3  text-sm font-semibold text-gray-900 "
+                  className="px-4 py-3  text-sm font-semibold text-gray-900 dark:!bg-gray-800 dark:!text-white  "
                 >
                   {heading}
                 </th>
@@ -91,7 +91,7 @@ function ActiveProjects() {
             {initialRequests.map((request) => (
               <tr
                 key={request.id}
-                className="border-b border-gray-100 last:border-0"
+                className="border-b border-gray-100 dark:!border dark:!border-white/15 last:border-0"
               >
                
                 <td className="px-4 py-3">
@@ -116,7 +116,7 @@ function ActiveProjects() {
   id="file-progress"
   value={request.progress}
   max={100}
-  className="w-full h-3 rounded-md overflow-hidden [&::-webkit-progress-bar]:bg-gray-200 [&::-webkit-progress-bar]:rounded-md [&::-webkit-progress-value]:bg-blue-600 [&::-webkit-progress-value]:rounded-md [&::-moz-progress-bar]:bg-blue-600 [&::-moz-progress-bar]:rounded-md"
+  className="w-full h-3 rounded-md overflow-hidden [&::-webkit-progress-bar]:bg-gray-200 dark:[&::-webkit-progress-bar]:bg-green-200/10 [&::-webkit-progress-bar]:rounded-md [&::-webkit-progress-value]:bg-blue-600 dark:[&::-webkit-progress-value]:bg-secondary [&::-webkit-progress-value]:rounded-md [&::-moz-progress-bar]:bg-blue-600 [&::-moz-progress-bar]:rounded-md"
 />
       <span>{request.progress}%</span>
     </div>

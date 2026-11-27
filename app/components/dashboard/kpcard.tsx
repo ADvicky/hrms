@@ -47,46 +47,79 @@ const kpiData = [
   },
 ];
 
-// Convert dummy data into SVG coordinates
-function createGraphPath(data: number[]) {
-  const width = 140;
-  const height = 40;
-  const padding = 4;
+const points = [
+  { x: 0, y: 50 },
+  { x: 25, y: 0 },
+  { x: 70, y: 25 },
+  { x: 105, y: 5 },
+  { x: 140, y: 20 },
+];
 
-  const min = Math.min(...data);
-  const max = Math.max(...data);
-  const range = max - min || 1;
+type Point = {
+  x: number;
+  y: number;
+};
 
-  return data
-    .map((value, index) => {
-      const x = (index / (data.length - 1)) * width;
+function createSmoothPath(points: Point[]): string {
+  if (points.length === 0) return "";
 
-      const y =
-        height -
-        padding -
-        ((value - min) / range) * (height - padding * 2);
+  let path = `M ${points[0].x} ${points[0].y}`;
 
-      return `${index === 0 ? "M" : "L"} ${x} ${y}`;
-    })
-    .join(" ");
+  for (let i = 1; i < points.length; i++) {
+    const previous = points[i - 1];
+    const current = points[i];
+
+    const midX = (previous.x + current.x) / 2;
+
+    path += ` C ${midX} ${previous.y},
+                ${midX} ${current.y},
+                ${current.x} ${current.y}`;
+  }
+
+  return path;
 }
+
+// function createGraphPath(data: number[]) {
+//   const width = 140;
+//   const height = 40;
+//   const padding = 4;
+
+//   const min = Math.min(...data);
+//   const max = Math.max(...data);
+//   const range = max - min || 1;
+
+//   return data
+//     .map((value, index) => {
+//       const x = (index / (data.length - 1)) * width;
+
+//       const y =
+//         height -
+//         padding -
+//         ((value - min) / range) * (height - padding * 2);
+
+//       return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+//     })
+//     .join(" ");
+// }
+const graphPath = createSmoothPath(points); 
 
 function KpCard() {
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4 p-2">
       {kpiData.map((card) => {
         const Icon = card.icon;
-        const graphPath = createGraphPath(card.graph);
+        // const graphPath = createGraphPath(card.graph);
+        const graphPath = createSmoothPath(points); 
 
         return (
           <div
             key={card.id}
-            className="flex min-h-25 min-w-0 w-full flex-col justify-between rounded-md bg-white dark:!bg-slate-500 p-2 hover:shadow-md"
+            className="flex min-h-25 min-w-0 w-full flex-col dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] justify-between rounded-md bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 p-2 hover:shadow-md"
           >
          
             <div className="flex gap-2">
-            <div className="rounded-lg bg-light dark:!bg-slate-500 p-2 w-fit">
-              <Icon size={24} className="text-primary" />
+            <div className="rounded-lg bg-light dark:!bg-gray-800 dark:!text-white p-2 w-fit">
+              <Icon size={20} className="text-primary dark:!text-white " />
             </div>
             <p className="text-md font-medium text-gray-700 dark:text-gray-300">
       {card.title}
@@ -182,7 +215,7 @@ function KpCard() {
     </div>
 
    
-    <svg
+    {/* <svg
       viewBox="0 0 140 40"
       className="block h-12 w-28 shrink-0"
       aria-label={`${card.title} trend`}
@@ -190,7 +223,7 @@ function KpCard() {
     >
       <path
         d={`${graphPath} L 140 40 L 0 40 Z`}
-        className="fill-[#DDEFE2] dark:fill-green-900"
+        className="fill-[#DDEFE2] dark:fill-green-300 dark:!shadow-[0_10px_10px_2px_rgba(0,0,0,0.2)]"
         opacity="0.7"
       />
 
@@ -202,7 +235,37 @@ function KpCard() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
+    </svg> */}
+  <svg
+  viewBox="0 0 140 40"
+  className="block h-12 w-28 shrink-0 overflow-visible"
+  aria-label={`${card.title} trend`}
+  role="img"
+>
+  <path
+    d={`${graphPath} L 140 40 L 0 40 Z`}
+    className="
+      // fill-[#DDEFE2]
+      fill-green-600
+      dark:fill-green-300
+      dark:drop-shadow-[0_4px_5px_rgba(0,0,0,0.4)]
+    "
+    opacity="0.3"
+  />
+
+  <path
+    d={graphPath}
+    fill="none"
+    className="
+      stroke-[#65A879]
+      dark:stroke-green-300
+      dark:drop-shadow-[0_0_4px_rgba(134,239,172,0.8)]
+    "
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
   </div>
 </div>
           </div>

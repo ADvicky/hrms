@@ -49,44 +49,45 @@ function ReportAnalytics() {
           aria-label="Report analytics tabs"
           variant="scrollable"
           scrollButtons="auto"
-          sx={{
-            minHeight: 42,
+            sx={{
+          minHeight: 42,
 
-            "& .MuiTabs-indicator": {
-              display: "none",
-            },
+          "& .MuiTabs-indicator": {
+            display: "none",
+          },
 
-            "& .MuiTabs-flexContainer": {
-              gap: "8px",
-            },
+          "& .MuiTabs-flexContainer": {
+            gap: "8px",
+          },
 
-            "& .MuiTab-root": {
-              textTransform: "none",
-              minHeight: 42,
-              fontSize: "14px",
-              fontWeight: 600,
-              borderRadius: "20px",
-              color: "#64748b",
-              padding: "8px 20px",
-            },
+          "& .MuiTab-root": {
+            textTransform: "none",
+            minHeight: 4,
+            fontSize: "14px",
+            fontWeight: 600,
+            // borderRadius: "10px",
+            color: "#64748b",
+            padding: "5px 20px",
+            
+          },
 
-            "& .MuiTab-root.Mui-selected": {
-              backgroundColor: "#d1fae5",
-              color: "#166534",
-              position: "relative",
+          "& .MuiTab-root.Mui-selected": {
+  // backgroundColor: "#d1fae5",
+  color: "#166534",
+  position: "relative",
 
-              "&::after": {
-                content: '""',
-                position: "absolute",
-                bottom: 0,
-                left: "15%",
-                width: "70%",
-                height: "3px",
-                backgroundColor: "#166534",
-                borderRadius: "4px",
-              },
-            },
-          }}
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    bottom: 0,
+
+    width: "80%",
+    height: "3px",
+    backgroundColor: "#166534",
+    borderRadius: "4px",
+  },
+},
+        }}
         >
           <Tab label="Reports" />
           <Tab label="Settings" />
@@ -120,7 +121,7 @@ function ReportAnalytics() {
 
             {selectedSetting && (
               <div
-                className="bg-white rounded-xl p-6
+                className="bg-white  rounded-xl p-6
                 shadow-[0_0_10px_rgba(0,0,0,0.08)]"
               >
                 {selectedSetting === "users_roles" && (

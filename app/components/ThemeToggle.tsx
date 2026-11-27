@@ -33,7 +33,7 @@ export default function ThemeToggle() {
           setTheme(isDark ? "light" : "dark")
         }
         className={`
-          relative flex h-7 w-18 items-center
+          relative flex h-8 w-15 items-center
           rounded-full cursor-pointer
           transition-colors duration-300
           focus-visible:outline-2
@@ -53,7 +53,7 @@ export default function ThemeToggle() {
             transition-transform duration-1000 ease-[cubic-bezier(0.65,1,0.85,1,0.45,1)]
             ${
               isDark
-                ? "translate-x-11"
+                ? "translate-x-8"
                 : "translate-x-1"
             }
           `}

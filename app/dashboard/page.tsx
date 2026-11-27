@@ -7,6 +7,7 @@ import PayRole from "../components/dashboard/PayRole";
 import LeaveApprovel from "../components/dashboard/LeaveApprovel";
 import ActiveProjects from "../components/dashboard/ActiveProjects";
 import RecentActivities from "../components/dashboard/RecentActivities";
+import LiveClock from "../components/dashboard/LiveClock";
 
 
 export default function DashboardPage() {
@@ -52,32 +53,33 @@ export default function DashboardPage() {
     // </main>
     <main className="min-w-0 flex-1 pt-3 overflow-y-auto overflow-x-hidden sidebar-scroll">
 
- 
+  <div className="px-2">
+      <WelcomeSection name="Admin" />
+      </div>
   <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] ">
 
    
     <div className="flex min-w-0 flex-col">
-  <div className="px-2">
-      <WelcomeSection name="Admin" />
-      </div>
+ 
 
       <KpCard />
 
       <div className="flex min-w-0 flex-col space-y-2 px-1">
         <AttendanceOverview />
          <div className="min-w-0 px-2">
-    <PayRole />
+    {/* <PayRole /> */}
   </div>
       </div>
 
     </div>
 
   
-    <div className="flex min-w-0 flex-col pr-2">
+    <div className="flex min-w-0 flex-col pr-2 pt-2">
 
-      <MeetingCalendar />
+      <LiveClock />
+      <div className="pt-2"><MeetingCalendar /></div>
 
-      <div className="py-12">
+      <div className="pt-2">
         <QuickActions />
       </div>
 

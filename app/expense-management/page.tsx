@@ -9,6 +9,7 @@ import {
   Banknote,
   Plus,
   Trash2,
+  ChevronDown,
 } from "lucide-react";
 
 import {
@@ -30,6 +31,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import { X } from "lucide-react";
+import { useTheme } from "next-themes";
 
 
 
@@ -155,7 +157,9 @@ const formatAmount = (amount: number) =>
 
 export default function ExpenseManagement() {
 
+const { resolvedTheme } = useTheme();
 
+const isDark = resolvedTheme === "dark";
 
   const [expenses, setExpenses] =
     useState<Expense[]>(initialExpenses);
@@ -203,7 +207,7 @@ export default function ExpenseManagement() {
       title: "Pending Approval",
       value: formatAmount(pendingExpenses),
       icon: Clock,
-      color: "text-yellow-600",
+      // color: "text-yellow-600",
     },
     {
       title: "Approved Expenses",
@@ -214,7 +218,7 @@ export default function ExpenseManagement() {
       title: "Reimbursed",
       value: formatAmount(reimbursedExpenses),
       icon: Banknote,
-      color: "text-blue-600",
+      // color: "text-blue-600",
     },
   ];
 
@@ -325,9 +329,9 @@ function deleteExpense(id: string) {
   return (
     <div className="w-full min-w-0 p-4 md:p-8
       flex flex-col gap-6 bg-[#f5f9f7]
-      dark:bg-gray-900 min-h-screen">
+      dark:!border dark:!border-white/15 dark:!text-white dark:!bg-slate-700/5 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] min-h-screen">
 
-      {/* Page Header */}
+     
 
       <div className="flex flex-wrap items-center
         justify-between gap-4">
@@ -344,12 +348,12 @@ function deleteExpense(id: string) {
 
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2
-          bg-emerald-700 text-white
-          px-4 py-2.5 rounded-lg
-          hover:bg-emerald-800 cursor-pointer"
+          className="flex items-center gap-1
+          bg-emerald-700 text-xs text-white
+          px-2 py-1.5 rounded-lg
+           cursor-pointer"
         >
-          <Plus size={18} />
+          <Plus size={15} />
           Add Expense
         </button>
 
@@ -371,7 +375,7 @@ function deleteExpense(id: string) {
 
       {(value === 0 || value === 4) && (
 
-        <div className="bg-white dark:bg-gray-800
+        <div className="bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
           rounded-xl p-5 min-w-0
           shadow-[0_0_10px_rgba(0,0,0,0.08)]">
 
@@ -381,7 +385,7 @@ function deleteExpense(id: string) {
 
           <div className="w-full h-[300px]">
 
-            <ResponsiveContainer width="100%" height="100%">
+            {/* <ResponsiveContainer width="100%" height="100%">
 
               <BarChart data={chartData}>
 
@@ -412,21 +416,90 @@ function deleteExpense(id: string) {
 
               </BarChart>
 
-            </ResponsiveContainer>
+            </ResponsiveContainer> */}
+
+<ResponsiveContainer width="100%" height="100%">
+  <BarChart data={chartData}>
+    <CartesianGrid
+      strokeDasharray="3 3"
+      vertical={false}
+      stroke={isDark ? "#374151" : "#e5e7eb"}
+    />
+
+    <XAxis
+      dataKey="category"
+      tick={{
+        fontSize: 11,
+        fill: isDark ? "#d1d5db" : "#374151",
+      }}
+      interval={0}
+      angle={-25}
+      textAnchor="end"
+      height={65}
+      axisLine={{
+        stroke: isDark ? "#4b5563" : "#d1d5db",
+      }}
+      tickLine={false}
+    />
+
+    <YAxis
+      tick={{
+        fontSize: 12,
+        fill: isDark ? "#d1d5db" : "#374151",
+      }}
+      axisLine={false}
+      tickLine={false}
+    />
+
+    <Tooltip
+      cursor={false}
+      formatter={(value) => [`${value}%`, "Attendance"]}
+      contentStyle={{
+        backgroundColor: isDark ? "#1f2937" : "#ffffff",
+
+        border: isDark
+          ? "1px solid rgba(255,255,255,0.15)"
+          : "1px solid #e5e7eb",
+
+        borderRadius: "8px",
+        fontSize: "12px",
+
+        boxShadow: isDark
+          ? "0 0 8px rgba(101,168,121,0.4)"
+          : "0 2px 8px rgba(0,0,0,0.1)",
+      }}
+      labelStyle={{
+        color: isDark ? "#ffffff" : "#111827",
+        fontWeight: 600,
+      }}
+      itemStyle={{
+        color: isDark ? "#d1d5db" : "#374151",
+      }}
+    />
+
+    <Bar
+      dataKey="amount"
+      fill="#23834D"
+      radius={[5, 5, 0, 0]}
+      maxBarSize={36}
+    />
+  </BarChart>
+</ResponsiveContainer>
 
           </div>
+          
 
         </div>
 
       )}
 
-      {/* Expense Table */}
+   
 
       {value !== 4 && (
 
-        <div className="bg-white dark:bg-gray-800
+        <div className="bg-white dark:!bg-slate-700/5 dark:!border dark:!border-white/15
           rounded-xl p-4 flex flex-col gap-5 min-w-0
-          shadow-[0_0_10px_rgba(0,0,0,0.08)]">
+          shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]">
 
           <div className="flex flex-wrap items-center
             justify-between gap-3">
@@ -443,21 +516,47 @@ function deleteExpense(id: string) {
                 placeholder="Search expenses..."
               />
 
-              <select
-                aria-label="Expense category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="border border-gray-200
-                rounded-lg px-3 py-2 dark:bg-gray-800"
-              >
-                <option value="all">All Categories</option>
+             <div className="relative w-fit">
 
-                {categories.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+  <select
+    aria-label="Expense category"
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+    className="
+      appearance-none
+      border border-gray-200
+      rounded-lg
+      pl-3 pr-10 py-2
+      cursor-pointer
+      outline-none
+      dark:bg-gray-800
+      dark:text-white
+      dark:!border-white/15
+    "
+  >
+    <option value="all">All Categories</option>
+
+    {categories.map((item) => (
+      <option key={item} value={item}>
+        {item}
+      </option>
+    ))}
+  </select>
+
+  <ChevronDown
+    size={16}
+    className="
+      absolute
+      right-3
+      top-1/2
+      -translate-y-1/2
+      pointer-events-none
+      text-gray-500
+      dark:text-gray-300
+    "
+  />
+
+</div>
 
             </div>
 
@@ -466,9 +565,9 @@ function deleteExpense(id: string) {
           <div className="w-full overflow-x-auto">
 
             <table className="w-full min-w-[950px]
-              text-sm text-left">
+              text-sm text-left dark:!border dark:!border-white/15 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!bg-slate-700/20">
 
-              <thead className="bg-gray-100 dark:bg-gray-700">
+              <thead className="bg-gray-100 dark:!border dark:!border-white/15  dark:!bg-slate-700/20">
 
                 <tr>
                   {[
@@ -542,7 +641,7 @@ function deleteExpense(id: string) {
                                 updateStatus(expense.id, "Approved")
                               }
                               className="text-green-700
-                              bg-green-100 px-3 py-1.5 rounded-md"
+                              bg-green-100 text-xs px-2 py-1.5 rounded-md cursor-pointer"
                             >
                               Approve
                             </button>
@@ -552,7 +651,7 @@ function deleteExpense(id: string) {
                                 updateStatus(expense.id, "Rejected")
                               }
                               className="text-red-700
-                              bg-red-100 px-3 py-1.5 rounded-md"
+                              bg-red-100 text-xs px-2 py-1.5 rounded-md cursor-pointer"
                             >
                               Reject
                             </button>
@@ -565,7 +664,7 @@ function deleteExpense(id: string) {
                               updateStatus(expense.id, "Reimbursed")
                             }
                             className="text-blue-700 bg-blue-100
-                            px-3 py-1.5 rounded-md"
+                            px-2 py-1.5 rounded-md text-xs cursor-pointer"
                           >
                             Reimburse
                           </button>
@@ -578,7 +677,7 @@ function deleteExpense(id: string) {
                             aria-label={`Delete ${expense.id}`}
                             // onClick={() => deleteExpense(expense.id)}
                             onClick={() => {setDeletepopup(true),setDeleteId(expense.id);}}
-                            className="text-red-600 p-2"
+                            className="text-red-600 p-2 cursor-pointer"
                           >
                             <Trash2 size={18} />
                           </button>

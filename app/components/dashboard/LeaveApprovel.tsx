@@ -59,29 +59,29 @@ function LeaveApprovel() {
     );
   }
     return ( 
-         <div className="w-full min-w-0 rounded-md bg-white dark:bg-slate-500 p-3 hover:shadow-md mt-5  ">
+         <div className="w-full min-w-0 rounded-md bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 p-3 hover:shadow-md dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] mt-2  ">
 
     
       <div className="mb-4 flex items-center justify-between">
 
         <div className="flex items-center gap-2">
-         <Image src={"/briefcase.png"} alt="briefcase" height={100} width={100} className="w-6 h-6"/>
+         {/* <Image src={"/briefcase.png"} alt="briefcase" height={100} width={100} className="w-6 h-6"/> */}
 
-          <h2 className="text-lg font-bold text-gray-900 dark:!text-gray-300">
+          <h2 className="text-lg font-bold text-gray-900 dark:!text-white">
             Leave Approvals
           </h2>
         </div>
 
         <Link
           href="/quick-actions"
-          className="flex items-center gap-1 text-sm font-medium text-primary dark:!text-gray-300"
+          className="flex items-center gap-1 text-sm font-medium text-primary dark:!text-white"
         >
           View All
           <ArrowRight size={18} />
         </Link>
       </div>
         <div className="w-full sidebar-scroll overflow-x-auto">
-        <table className="w-full min-w-[700px] border-collapse text-left">
+        <table className="w-full min-w-[700px] border-collapse dark:!border dark:!border-white/15  text-left">
           <thead className="bg-light">
             <tr>
               {[
@@ -93,7 +93,7 @@ function LeaveApprovel() {
               ].map((heading) => (
                 <th
                   key={heading}
-                  className="px-4 py-3 text-sm font-semibold text-gray-900"
+                  className="px-4 py-3 text-sm font-semibold text-gray-900 dark:!bg-gray-800 dark:!text-white"
                 >
                   {heading}
                 </th>
@@ -105,9 +105,9 @@ function LeaveApprovel() {
             {requests.map((request) => (
               <tr
                 key={request.id}
-                className="border-b border-gray-100 last:border-0"
+                className="border-b border-gray-100 dark:!border dark:!border-white/15  last:border-0"
               >
-                {/* Employee */}
+               
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div className="flex size-9 shrink-0 items-center justify-center rounded-full dark:!text-gray-600 bg-light dark:!bg-slate-200 text-sm font-semibold text-primary">
@@ -125,27 +125,40 @@ function LeaveApprovel() {
                   {request.leaveType}
                 </td>
 
-                {/* Dates */}
+            
                 <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700 dark:!text-gray-300">
                   {request.dates}
                 </td>
 
-                {/* Status */}
-                <td className="px-4 py-3">
+             
+                {/* <td className="px-4 py-3">
                   <span
                     className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                       request.status === "Pending"
-                        ? "bg-orange-100 text-orange-600"
+                        ? " bg-orange-200 text-warning-foreground"
                         : request.status === "Approved"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-600"
+                        ? "bg-success text-green-700 text-success-foreground"
+                        : "bg-destructive  text-destructive-foreground"
                     }`}
                   >
                     {request.status}
                   </span>
-                </td>
+                </td> */}
+                <td className="px-4 py-3">
+  <span
+    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+      request.status === "Pending"
+        ? "bg-warning/20 text-orange-700 dark:text-orange-300/70 "
+        : request.status === "Approved"
+        ? "bg-success/20 text-green-700 dark:text-secondary"
+        : "bg-destructive/20 text-red-700 dark:text-red-300"
+    }`}
+  >
+    {request.status}
+  </span>
+</td>
 
-                {/* Actions */}
+                
                 <td className="px-4 py-3">
                   {request.status === "Pending" ? (
                     <div className="flex items-center gap-2">
@@ -168,9 +181,9 @@ function LeaveApprovel() {
                         onClick={() =>
                           updateStatus(request.id, "Rejected")
                         }
-                        className="rounded-md border border-red-300 p-2 text-red-500 hover:bg-red-50"
+                        className="rounded-md dark:border p-2 dark:bg-destructive/20 bg-destructive/50 hover:bg-red-50"
                       >
-                        <X size={18} />
+                        <X size={18} className="text-red-600"/>
                       </button>
                     </div>
                   ) : (

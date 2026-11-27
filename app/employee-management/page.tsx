@@ -22,7 +22,14 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import {
+  Package,
+  UserCheck,
+  Boxes,
+  Wrench,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
+import DashboardKpiCards from "../components/DashboardKpiCards";
 // import EmployeeDataPage from "../employee-data/page";
 
 type Employee = {
@@ -32,6 +39,31 @@ type Employee = {
   age: number;
   status: "active" | "inactive";
 };
+
+const cards = [
+    {
+      title: "Employee",
+      value: 60,
+      icon: Package,
+    },
+    {
+      title: "Present",
+      value: 55,
+      icon: UserCheck,
+      // color: "text-blue-600",
+    },
+    {
+      title: "Absent",
+      value: 5,
+      icon: Boxes,
+    },
+    {
+      title: "Late",
+      value:10,
+      icon: Wrench,
+      // color: "text-yellow-600",
+    },
+  ];
 
 const initialRows: Employee[] = [
   {
@@ -63,7 +95,16 @@ const initialRows: Employee[] = [
     status: "active",
   },
 ];
+// interface KpiCard {
+//   title: string;
+//   value: string | number;
+//   icon: LucideIcon;
+//   color?: string;
+// }
 
+// interface DashboardKpiCardsProps {
+//   cards: KpiCard[];
+// }
 export default function EmployeeManagement() {
   const router = useRouter()
   const [employees, setEmployees] =
@@ -209,9 +250,9 @@ export default function EmployeeManagement() {
   return (
     <div className="w-full p-6">
  
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 ">
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-2xl font-bold  dark:!text-white ">
             Employee Management
           </h1>
           {/* <p className="mt-2 text-sm text-gray-500">
@@ -221,15 +262,15 @@ export default function EmployeeManagement() {
 
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2 rounded-lg bg-secondary px-5 py-3 font-medium text-white"
+          className="flex items-center gap-1 rounded-lg bg-secondary px-2 py-1.5 text-sm  font-medium text-white"
         >
           <Plus size={20} />
           Add Employee
         </button>
       </div>
 
-    
-      <div className="mb-6 flex flex-wrap items-center gap-4">
+      <DashboardKpiCards cards={cards} />
+      <div className="mb-6 flex flex-wrap items-center gap-4 pt-5">
         <div className="relative w-full max-w-md">
           <Search
             size={20}
@@ -243,11 +284,11 @@ export default function EmployeeManagement() {
               setSearch(event.target.value)
             }
             placeholder="Search employees..."
-            className="h-12 w-full rounded-lg border border-gray-300 bg-white pl-12 pr-4 text-black outline-none focus:border-blue-500"
+            className="h-10 w-full rounded-lg border border-gray-300 bg-white pl-12 pr-4 text-black  outline-none focus:border-blue-500"
           />
         </div>
 
-        <FormControl sx={{ minWidth: 150 }}>
+        {/* <FormControl sx={{ minWidth: 150 }}>
           <Select
             value={age}
             onChange={(event) =>
@@ -280,7 +321,66 @@ export default function EmployeeManagement() {
             <MenuItem value="active">Active</MenuItem>
             <MenuItem value="inactive">Inactive</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
+        <FormControl sx={{ minWidth: 150 }}>
+  <Select
+    value={age}
+    onChange={(event) =>
+      setAge(event.target.value)
+    }
+    displayEmpty
+    size="small"
+    sx={{
+      color: "text.primary",
+      backgroundColor: "background.paper",
+
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: "divider",
+      },
+
+      "& .MuiSelect-icon": {
+        color: "text.secondary",
+      },
+    }}
+  >
+    <MenuItem value="">All Ages</MenuItem>
+
+    {[...new Set(employees.map((emp) => emp.age))]
+      .sort((a, b) => a - b)
+      .map((value) => (
+        <MenuItem key={value} value={String(value)}>
+          {value}
+        </MenuItem>
+      ))}
+  </Select>
+</FormControl>
+
+<FormControl sx={{ minWidth: 150 }}>
+  <Select
+    value={status}
+    onChange={(event) =>
+      setStatus(event.target.value)
+    }
+    displayEmpty
+    size="small"
+    sx={{
+      color: "text.primary",
+      backgroundColor: "background.paper",
+
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: "divider",
+      },
+
+      "& .MuiSelect-icon": {
+        color: "text.secondary",
+      },
+    }}
+  >
+    <MenuItem value="">All Status</MenuItem>
+    <MenuItem value="active">Active</MenuItem>
+    <MenuItem value="inactive">Inactive</MenuItem>
+  </Select>
+</FormControl>
       </div>
 
       
@@ -343,7 +443,7 @@ export default function EmployeeManagement() {
           }}
         />
       </Paper> */}
-      <Paper
+      {/* <Paper
   elevation={0}
   sx={{
     width: "100%",
@@ -410,6 +510,294 @@ export default function EmployeeManagement() {
           cursor: "pointer",
         },
       }}
+    />
+  </Suspense>
+</Paper> */}
+
+{/* <Paper
+  elevation={0}
+  sx={{
+    width: "100%",
+    borderRadius: 3,
+    overflow: "hidden",
+    border: "1px solid",
+    borderColor: "divider",
+    backgroundColor: "background.paper",
+    color: "text.primary",
+  }}
+>
+  <Suspense
+    fallback={
+      <div className="flex items-center justify-center h-[400px] dark:text-gray-300">
+        Loading employees...
+      </div>
+    }
+  >
+    <DataGrid
+      rows={filteredRows}
+      columns={columns}
+      autoHeight
+      initialState={{
+        pagination: {
+          paginationModel: {
+            page: 0,
+            pageSize: 5,
+          },
+        },
+      }}
+      onRowClick={(params) => {
+        const fullName =
+          `${params.row.firstName} ${params.row.lastName}`;
+
+        handleEmployeeProfile(
+          params.row.id,
+          fullName
+        );
+      }}
+      pageSizeOptions={[5, 10, 25]}
+      rowHeight={65}
+      columnHeaderHeight={65}
+      sx={(theme) => ({
+        border: 0,
+
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
+
+        
+        "& .MuiDataGrid-columnHeaders": {
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "#334155"
+              : "#f1f5f9",
+        },
+
+      
+        "& .MuiDataGrid-columnHeader": {
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "#334155"
+              : "#f1f5f9",
+
+          color: theme.palette.text.primary,
+        },
+
+     
+        "& .MuiDataGrid-columnHeaderTitle": {
+          fontWeight: 700,
+          fontSize: "14px",
+        },
+
+        
+        "& .MuiDataGrid-cell": {
+          fontSize: "14px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+          color: theme.palette.text.primary,
+          borderColor: theme.palette.divider,
+        },
+
+       
+        "& .MuiDataGrid-row:hover": {
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "#334155"
+              : "#f8fafc",
+
+          cursor: "pointer",
+        },
+
+      
+        "& .MuiDataGrid-footerContainer": {
+          backgroundColor:
+            theme.palette.background.paper,
+
+          borderColor: theme.palette.divider,
+        },
+
+        // Pagination text
+        "& .MuiTablePagination-root": {
+          color: theme.palette.text.primary,
+        },
+
+        // Icons
+        "& .MuiSvgIcon-root": {
+          color: theme.palette.text.secondary,
+        },
+
+        // Column separators
+        "& .MuiDataGrid-columnSeparator": {
+          color: theme.palette.divider,
+        },
+      })}
+    />
+  </Suspense>
+</Paper> */}
+
+<Paper
+  elevation={0}
+  className="
+    w-full !rounded-xl overflow-hidden
+    border border-gray-200 
+    !bg-white !text-gray-900
+    dark:!bg-black
+    dark:!text-gray-100
+    dark:!border-slate-600
+  "
+>
+  <Suspense
+    fallback={
+      <div
+        className="
+          flex items-center justify-center
+          h-[400px]
+          dark:text-gray-300
+        "
+      >
+        Loading employees...
+      </div>
+    }
+  >
+    <DataGrid
+      rows={filteredRows}
+      columns={columns}
+      autoHeight
+      initialState={{
+        pagination: {
+          paginationModel: {
+            page: 0,
+            pageSize: 5,
+          },
+        },
+      }}
+      onRowClick={(params) => {
+        const fullName =
+          `${params.row.firstName} ${params.row.lastName}`;
+
+        handleEmployeeProfile(
+          params.row.id,
+          fullName
+        );
+      }}
+      pageSizeOptions={[5, 10, 25]}
+      rowHeight={75}
+      columnHeaderHeight={75}
+      // className="
+      //   !border-0
+      //   !bg-white
+      //   !text-gray-900
+      //   dark:!bg-black
+      //   dark:!text-gray-100
+        
+
+      //   [&_.MuiDataGrid-columnHeaders]:!bg-slate-100
+      //   dark:[&_.MuiDataGrid-columnHeaders]:!bg-black
+
+      //   [&_.MuiDataGrid-columnHeader]:!bg-slate-100
+      //   [&_.MuiDataGrid-columnHeader]:!text-gray-900
+      //   dark:[&_.MuiDataGrid-columnHeader]:!bg-black
+      //   dark:[&_.MuiDataGrid-columnHeader]:!text-white
+
+      //   [&_.MuiDataGrid-columnHeaderTitle]:!font-bold
+      //   [&_.MuiDataGrid-columnHeaderTitle]:!text-sm
+
+      //   [&_.MuiDataGrid-cell]:!text-sm
+      //   [&_.MuiDataGrid-cell]:!px-5
+      //   [&_.MuiDataGrid-cell]:!text-gray-900
+      //   [&_.MuiDataGrid-cell]:!border-gray-200
+      //   dark:[&_.MuiDataGrid-cell]:!text-gray-100
+      //   dark:[&_.MuiDataGrid-cell]:!border-slate-600
+
+      //   [&_.MuiDataGrid-row:hover]:!bg-slate-50
+      //   [&_.MuiDataGrid-row:hover]:cursor-pointer
+      //   dark:[&_.MuiDataGrid-row:hover]:!bg-slate-700
+
+      //   [&_.MuiDataGrid-footerContainer]:!bg-white
+      //   [&_.MuiDataGrid-footerContainer]:!border-gray-200
+      //   dark:[&_.MuiDataGrid-footerContainer]:!bg-slate-800
+      //   dark:[&_.MuiDataGrid-footerContainer]:!border-slate-600
+
+      //   [&_.MuiTablePagination-root]:!text-gray-900
+      //   dark:[&_.MuiTablePagination-root]:!text-gray-100
+
+      //   [&_.MuiSvgIcon-root]:!text-gray-500
+      //   dark:[&_.MuiSvgIcon-root]:!text-gray-300
+
+      //   [&_.MuiDataGrid-columnSeparator]:!text-gray-300
+      //   dark:[&_.MuiDataGrid-columnSeparator]:!text-slate-500
+
+      //   [&_.MuiDataGrid-filler]:!bg-slate-100
+      //   dark:[&_.MuiDataGrid-filler]:!bg-slate-700
+      // "
+      className="
+  !border-0
+  !bg-white
+  !text-gray-900
+  dark:!bg-black
+  dark:!text-gray-100
+
+  [&_.MuiDataGrid-columnHeaders]:!bg-slate-100
+  dark:[&_.MuiDataGrid-columnHeaders]:!bg-black
+
+  [&_.MuiDataGrid-columnHeader]:!bg-slate-100
+  [&_.MuiDataGrid-columnHeader]:!text-gray-900
+  [&_.MuiDataGrid-columnHeader]:!px-5
+  dark:[&_.MuiDataGrid-columnHeader]:!bg-slate-900
+  dark:[&_.MuiDataGrid-columnHeader]:!text-white
+
+[&_.MuiDataGrid-columnSeparator]:!text-gray-300
+dark:[&_.MuiDataGrid-columnSeparator]:!text-slate-500
+[&_.MuiDataGrid-columnSeparator]:!hidden
+
+  [&_.MuiDataGrid-columnHeaderTitleContainer]:!justify-center
+  [&_.MuiDataGrid-columnHeaderTitleContainer]:!items-center
+
+  [&_.MuiDataGrid-columnHeaderTitle]:!font-bold
+  [&_.MuiDataGrid-columnHeaderTitle]:!text-sm
+
+  [&_.MuiDataGrid-cell]:!text-sm
+  [&_.MuiDataGrid-cell]:!px-5
+  [&_.MuiDataGrid-cell]:!flex
+  [&_.MuiDataGrid-cell]:!items-center
+  [&_.MuiDataGrid-cell]:!justify-center
+  [&_.MuiDataGrid-cell]:!text-gray-900
+  [&_.MuiDataGrid-cell]:!border-gray-200
+  dark:[&_.MuiDataGrid-cell]:!text-gray-100
+  dark:[&_.MuiDataGrid-cell]:!border-slate-600
+
+  [&_.MuiDataGrid-row:hover]:!bg-slate-50
+  [&_.MuiDataGrid-row:hover]:cursor-pointer
+  dark:[&_.MuiDataGrid-row:hover]:!bg-gray-700
+  
+
+  [&_.MuiDataGrid-footerContainer]:!bg-white
+  [&_.MuiDataGrid-footerContainer]:!border-gray-200
+  dark:[&_.MuiDataGrid-footerContainer]:!bg-black
+  dark:[&_.MuiDataGrid-footerContainer]:!border-slate-600
+
+  [&_.MuiTablePagination-root]:!text-gray-900
+  dark:[&_.MuiTablePagination-root]:!text-white
+
+  dark:[&_.MuiTablePagination-toolbar]:!bg-black
+  dark:[&_.MuiTablePagination-selectLabel]:!text-white
+  dark:[&_.MuiTablePagination-displayedRows]:!text-white
+  dark:[&_.MuiTablePagination-select]:!text-white
+  dark:[&_.MuiTablePagination-selectIcon]:!text-white
+
+  [&_.MuiSvgIcon-root]:!text-gray-500
+  dark:[&_.MuiSvgIcon-root]:!text-gray-300
+
+  dark:[&_.MuiTablePagination-actions_.MuiIconButton-root]:!text-white
+  dark:[&_.MuiTablePagination-actions_.Mui-disabled]:!opacity-30
+
+  [&_.MuiDataGrid-columnSeparator]:!text-gray-300
+  dark:[&_.MuiDataGrid-columnSeparator]:!text-slate-500
+
+  [&_.MuiDataGrid-filler]:!bg-slate-100
+  dark:[&_.MuiDataGrid-filler]:!bg-black
+
+  dark:[&_.MuiDataGrid-scrollbarFiller]:!bg-black
+  dark:[&_.MuiDataGrid-overlay]:!bg-black
+"
     />
   </Suspense>
 </Paper>
@@ -502,6 +890,7 @@ export default function EmployeeManagement() {
             <Button
               onClick={() => setOpen(false)}
               color="inherit"
+              size="small"
             >
               Cancel
             </Button>
@@ -509,6 +898,7 @@ export default function EmployeeManagement() {
             <Button
               type="submit"
               variant="contained"
+              size="small"
             >
               Save Employee
             </Button>

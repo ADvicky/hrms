@@ -56,15 +56,15 @@ const quickActions = [
 function QuickActions() {
 
     return ( 
-    <div className="w-full min-w-0 rounded-xl bg-white dark:!text-gray-300 dark:!bg-slate-500 p-3 ">
+    <div className="w-full min-w-0 rounded-md bg-white dark:!border dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!border-white/15 dark:!bg-slate-700/20 p-3 ">
 
-      {/* Header */}
+      
       <div className="mb-4 flex items-center justify-between">
 
         <div className="flex items-center gap-2">
-          <Zap size={24} className="text-primary" />
+          <Zap size={24} className="text-primary dark:text-white" />
 
-          <h2 className="text-lg font-bold text-gray-900 dark:!text-gray-300">
+          <h2 className="text-lg font-bold text-gray-900 dark:!text-white">
             Quick Actions
           </h2>
         </div>
@@ -78,7 +78,7 @@ function QuickActions() {
         </Link>
       </div>
 
-      {/* Quick Action Cards */}
+      
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 ">
 
         {quickActions.map((quick) => {
@@ -89,20 +89,23 @@ function QuickActions() {
               key={quick.id}
               href={quick.href}
               className="
-                flex min-h-15 h-25 flex-col
-                items-center justify-center
-                gap-2 rounded-xl
-                bg-light dark:!bg-slate-200 p-3 text-center
-                transition-colors duration-200
-                hover:bg-accent hover:shadow-md dark:hover:!bg-slate-300
+             group
+          flex min-h-15 h-25 flex-col
+          items-center justify-center
+          gap-2 rounded-xl
+          bg-secondary/30 dark:!bg-slate-200/10
+          p-3 text-center
+          transition-colors duration-200
+          hover:bg-accent hover:shadow-md
+          dark:hover:!bg-accent
               "
             >
               <Icon
                 size={28}
-                className="shrink-0 text-primary"
+                className="shrink-0 text-primary group-hover:text-white dark:text-secondary"
               />
 
-              <span className="text-sm font-medium leading-tight text-gray-900">
+              <span className="text-sm font-medium leading-tight text-gray-900 group-hover:text-white dark:text-gray-300">
                 {quick.name}
               </span>
             </Link>

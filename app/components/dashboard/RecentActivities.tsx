@@ -28,7 +28,7 @@ const activities = [
 
 export default function RecentActivities() {
   return (
-    <div className="w-full rounded-md bg-white dark:!bg-slate-500
+    <div className="w-full rounded-md bg-white dark:!border dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!border-white/15 dark:!bg-slate-700/20
     dark:!text-gray-300 p-5 hover:shadow-md ">
 
     
@@ -51,7 +51,7 @@ export default function RecentActivities() {
       <div className="relative ml-2">
 
    
-        <div className="absolute bottom-5 left-[7px] top-2 w-0.5 bg-green-200" />
+        <div className="absolute bottom-5 left-[7px] top-2 w-0.5 bg-green-200 " />
 
         <div className="space-y-6">
           {activities.map((activity) => (
@@ -60,7 +60,7 @@ export default function RecentActivities() {
               className="relative flex items-start gap-4"
             >
            
-              <span className="relative z-10 mt-1 h-4 w-4 shrink-0 rounded-full bg-primary" />
+              <span className="relative z-10 mt-1 h-4 w-4 shrink-0 rounded-full bg-primary dark:border-2 dark:border-green-800" />
 
          
               <div className="flex min-w-0 flex-1 items-start justify-between gap-4">

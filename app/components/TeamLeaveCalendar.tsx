@@ -124,11 +124,11 @@ export default function TeamLeaveCalendar() {
   const availableEmployees = totalEmployees - employeesOnLeave;
 
   return (
-    <div className="w-full min-w-0 space-y-6 rounded-xl bg-white p-4 shadow-sm dark:bg-slate-800 sm:p-6">
+    <div className="w-full min-w-0 space-y-6 rounded-xl bg-white p-4 shadow-sm dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] sm:p-6">
 
-      {/* Heading */}
+      
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-bold text-gray-900  dark:!text-white ">
           Team Leave Calendar
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-300">
@@ -136,36 +136,71 @@ export default function TeamLeaveCalendar() {
         </p>
       </div>
 
-      {/* Summary cards */}
+     
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <div className="rounded-lg bg-gray-100 p-4 dark:bg-slate-700">
-          <Users className="mb-2 text-blue-600" size={22} />
-          <p className="text-sm text-gray-500 dark:text-gray-300">
-            Team Members
-          </p>
-          <h3 className="text-2xl font-bold">{totalEmployees}</h3>
-        </div>
 
-        <div className="rounded-lg bg-gray-100 p-4 dark:bg-slate-700">
-          <CalendarDays className="mb-2 text-orange-500" size={22} />
-          <p className="text-sm text-gray-500 dark:text-gray-300">
-            On Leave
-          </p>
-          <h3 className="text-2xl font-bold">{employeesOnLeave}</h3>
-        </div>
+  {/* Team Members */}
+  <div className="rounded-lg bg-gray-100 p-4 dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!text-white">
 
-        <div className="rounded-lg bg-gray-100 p-4 dark:bg-slate-700">
-          <UserCheck className="mb-2 text-green-600" size={22} />
-          <p className="text-sm text-gray-500 dark:text-gray-300">
-            Available
-          </p>
-          <h3 className="text-2xl font-bold">{availableEmployees}</h3>
-        </div>
-      </div>
+    <div className="mb-2 flex size-8 items-center justify-center rounded-md bg-blue-100 dark:!bg-gray-800">
+      <Users
+        className="text-blue-600 dark:!text-white"
+        size={22}
+      />
+    </div>
+
+    <p className="text-sm text-gray-500 dark:text-gray-300">
+      Team Members
+    </p>
+
+    <h3 className="text-2xl font-bold">
+      {totalEmployees}
+    </h3>
+  </div>
+
+
+  <div className="rounded-md bg-gray-100 p-4 dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!text-white">
+
+    <div className="mb-2 flex size-8 items-center justify-center rounded-md bg-orange-100 dark:!bg-gray-800">
+      <CalendarDays
+        className="text-orange-500 dark:!text-white"
+        size={22}
+      />
+    </div>
+
+    <p className="text-sm text-gray-500 dark:text-gray-300">
+      On Leave
+    </p>
+
+    <h3 className="text-2xl font-bold">
+      {employeesOnLeave}
+    </h3>
+  </div>
+
+  
+  <div className="rounded-lg bg-gray-100 p-4 dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!text-white">
+
+    <div className="mb-2 flex size-8 items-center justify-center rounded-md bg-green-100 dark:!bg-gray-800">
+      <UserCheck
+        className="text-green-600 dark:!text-white"
+        size={22}
+      />
+    </div>
+
+    <p className="text-sm text-gray-500 dark:text-gray-300">
+      Available
+    </p>
+
+    <h3 className="text-2xl font-bold">
+      {availableEmployees}
+    </h3>
+  </div>
+
+</div>
 
   
       
-<div className="w-full min-w-0 rounded-lg border border-gray-200 bg-white p-3 dark:border-slate-600 dark:bg-slate-800">
+<div className="w-full min-w-0 rounded-lg border border-gray-200 bg-white p-3 dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]">
 
   <DayPicker
     mode="single"
@@ -184,45 +219,63 @@ export default function TeamLeaveCalendar() {
     }}
 
     classNames={{
-      root: `${defaultClassNames.root} !w-full`,
+  root: `${defaultClassNames.root} !w-full`,
 
-      months: "w-full",
+  
+  months: `
+    ${defaultClassNames.months}
+    !w-full !max-w-none
+  `,
 
-      month: "w-full",
+  month: "w-full min-w-0",
 
-      month_grid: "w-full table-fixed border-collapse",
+  month_grid: "w-full table-fixed border-collapse",
 
-      weekdays: "w-full",
+  month_caption: `
+    flex items-center justify-center
+  `,
 
-      weekday: "w-[14.285%] text-center",
+  caption_label: `
+    text-sm font-semibold
+    dark:!text-white
+  `,
 
-      day: "w-[14.285%] p-1 text-center",
+  chevron: `
+    ${defaultClassNames.chevron}
+    !size-8
+    fill-amber-500
+    dark:!fill-secondary
+  `,
 
-      day_button: `
-        mx-auto flex
-        h-9 w-9
-        items-center justify-center
-        rounded-full
-        text-gray-900
-        hover:bg-green-100
-        dark:text-gray-100
-        dark:hover:bg-slate-600
-        sm:h-12 sm:w-12
-      `,
+  weekday: `
+    text-xs font-medium pt-3
+    dark:!text-white h-10
+  `,
 
-      chevron: `${defaultClassNames.chevron} fill-amber-500`,
+  day: "text-center ",
 
-      selected: `
-        [&>button]:!bg-green-700
-        [&>button]:!text-white
-        dark:[&>button]:!bg-green-600
-      `,
+  day_button: `
+    mx-auto flex size-10
+    items-center justify-center
+    rounded-full text-xs
+    text-gray-900
+    hover:bg-green-100
+    dark:!text-white
+    dark:hover:!bg-slate-600
+  `,
 
-      today: `
-        font-bold text-green-700
-        dark:text-green-400
-      `,
-    }}
+  selected: `
+    [&>button]:!bg-green-700
+    [&>button]:!text-white
+    dark:[&>button]:!bg-green-600
+    dark:[&>button]:!text-white
+  `,
+
+  today: `
+    font-bold text-green-700
+    dark:!text-green-400
+  `,
+}}
 
     modifiersClassNames={{
       approvedLeave:
@@ -233,14 +286,14 @@ export default function TeamLeaveCalendar() {
     }}
   />
 
-  <div className="mt-4 flex flex-wrap gap-4 text-sm">
+  <div className="mt-4 flex flex-wrap gap-4 text-sm dark:!text-white">
     <div className="flex items-center gap-2">
-      <span className="h-3 w-3 rounded-full bg-green-500" />
+      <span className="h-3 w-3 rounded-full bg-green-500  dark:!text-white " />
       Approved
     </div>
 
     <div className="flex items-center gap-2">
-      <span className="h-3 w-3 rounded-full bg-yellow-500" />
+      <span className="h-3 w-3 rounded-full bg-yellow-500 dark:!bg-yellow-500/80 dark:!text-white " />
       Pending
     </div>
   </div>
@@ -258,14 +311,14 @@ export default function TeamLeaveCalendar() {
         </h3>
 
         {selectedLeaves.length === 0 ? (
-          <p className="rounded-lg bg-gray-100 p-4 text-sm text-gray-500 dark:bg-slate-700 dark:text-gray-300">
+          <p className="rounded-lg bg-gray-100 p-4 text-sm text-gray-500 dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!text-white">
             No leave requests on this date.
           </p>
         ) : (
           selectedLeaves.map((leave) => (
             <div
               key={leave.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-gray-100 p-4 dark:bg-slate-700"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-gray-100 p-4 dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark:!text-white"
             >
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">

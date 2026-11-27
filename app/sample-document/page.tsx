@@ -81,7 +81,7 @@ function SampleDocuments({
       ) : (
 
         <div className="grid grid-cols-2
-          sm:grid-cols-3 xl:grid-cols-4 gap-4 ">
+          sm:grid-cols-4 xl:grid-cols-6 gap-2 ">
 
           {filteredDocuments.map((doc) => {
 
@@ -97,14 +97,14 @@ function SampleDocuments({
                   cursor-pointer transition-colors"
               >
 
-                {/* Document icon */}
+              
                 <Icon
-                  size={48}
-                  strokeWidth={1.8}
+                  size={38}
+                  strokeWidth={2}
                   className={doc.color}
                 />
 
-                {/* Document name */}
+               
                 <span className="text-sm font-medium
                   text-gray-700 dark:text-gray-300
                   text-center max-w-[130px] break-words">

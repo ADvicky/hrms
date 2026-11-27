@@ -21,35 +21,64 @@ function ManagementModal({
 }: ManagementModalProps) {
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle>
-        <div className="flex items-center justify-between">
+   <Dialog
+  open={open}
+  onClose={onClose}
+  fullWidth
+  maxWidth="md"
+  slotProps={{
+    paper: {
+      sx: (theme) => ({
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? "#000000"
+            : "#ffffff",
 
-          <span className="text-xl font-semibold">
-            {title}
-          </span>
+        backgroundImage: "none",
+        color: theme.palette.text.primary,
+        borderRadius: "12px",
 
-          <button
-            type="button"
-            aria-label="Close dialog"
-            onClick={onClose}
-            className="p-2 rounded-lg hover:bg-gray-100"
-          >
-            <X size={22} />
-          </button>
+        border: "1px solid",
+        borderColor: theme.palette.divider,
+      }),
+    },
+  }}
+>
+  <DialogTitle>
+    <div className="flex items-center justify-between">
+      <span className="text-xl font-semibold">
+        {title}
+      </span>
 
-        </div>
-      </DialogTitle>
+      <button
+        type="button"
+        aria-label="Close dialog"
+        onClick={onClose}
+        className="
+          p-2
+          rounded-lg
+          cursor-pointer
+          transition-colors
+          hover:bg-gray-100
+          dark:text-gray-300
+          dark:hover:bg-slate-700
+        "
+      >
+        <X size={22} />
+      </button>
+    </div>
+  </DialogTitle>
 
-      <DialogContent dividers>
-        {children}
-      </DialogContent>
-    </Dialog>
+  <DialogContent
+    dividers
+    sx={{
+      borderColor: "divider",
+      color: "text.primary",
+    }}
+  >
+    {children}
+  </DialogContent>
+</Dialog>
   );
 }
 

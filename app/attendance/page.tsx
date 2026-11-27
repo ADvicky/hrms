@@ -102,68 +102,86 @@ export default function Attendence() {
   );
   return (
     <div className='w-full'>
-        <div className='flex justify-end px-8 py-5'>
-            <button className='p-2.5 text-white pointer-events-auto hover:bg-secondary/80 rounded-md bg-secondary'>Attendence</button>
+        <div className='flex justify-between px-8 py-5'>
+          
+            <h1 className='text-black dark:!text-white text-3xl flex justify-start'>Attendence</h1>
+          
+            <button className='px-2 py-2 text-white text-xs pointer-events-auto hover:bg-secondary/80 rounded-md bg-secondary'>Attendence</button>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-[400px_minmax(0,1fr)] p-8 gap-6'>
-       
-              <div
-              className="
-              w-full min-w-0 self-start rounded-md bg-white p-4 text-gray-900 hover:shadow-md dark:bg-slate-500 dark:text-gray-100
-              "
-            >
-              <DayPicker
-                animate
-                mode="single"
-                selected={selected}
-                navLayout='around'
-                onSelect={(date) => {
-                  if (date) setSelected(date);
-                }}
-                month={month}
-                onMonthChange={setMonth}
-                showOutsideDays={false}
-                today={today || new Date(2026)}
-                classNames={{
-                //   root: "w-full",
-            
-                  month: "w-full",
-                  root: `${defaultClassNames.root} h-100  w-full`, // Add a shadow to the root element
-                  chevron: `${defaultClassNames.chevron} fill-amber-500`,
-            
-                  month_grid: "w-full border-collapse",
-                //   navLayout:"around",
-            
-                  day_button: `
-                    mx-auto flex size-13
-                    items-center justify-center
-                    rounded-full
-                    text-gray-900
-                    hover:bg-green-100
-                    dark:!text-gray-100
-                    dark:hover:!bg-slate-600
-                  `,
-            
-                  selected: `
-                    [&>button]:!bg-green-700
-                    [&>button]:!text-white
-                    dark:[&>button]:!bg-green-600
-                    dark:[&>button]:!text-white
-                  `,
-            
-                  today: `
-                    font-bold text-green-700
-                    dark:!text-green-400
-                  `,
-                }}
-              />
-            
-            
-            
-            </div>
+       <div
+  className="
+    w-full h-full max-h-[290px]
+    min-w-0 self-start
+    rounded-md bg-white p-2
+    text-gray-900 hover:shadow-md
+    dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
+  "
+>
+  <DayPicker
+    animate
+    mode="single"
+    selected={selected}
+    navLayout="around"
+    onSelect={(date) => {
+      if (date) setSelected(date);
+    }}
+    month={month}
+    onMonthChange={setMonth}
+    showOutsideDays={false}
+    today={today || new Date()}
+    classNames={{
+      root: `
+        ${defaultClassNames.root}
+        w-full
+        ![--rdp-day-height:37px]
+        ![--rdp-day-width:400px]
+        ![--rdp-day_button-height:28px]
+        ![--rdp-day_button-width:28px]
+      `,
+
+      month: "w-full",
+
+      month_grid: "w-full border-collapse",
+
+      month_caption: "flex items-center justify-center h-8",
+
+      caption_label: "text-sm font-semibold dark:!text-white",
+
+      chevron: `
+        ${defaultClassNames.chevron}
+        !size-6 fill-amber-500 dark:!fill-secondary
+      `,
+
+      weekday: "text-xs font-medium pt-3 dark:!text-white",
+
+      day_button: `
+        mx-auto flex size-8
+        items-center justify-center
+        rounded-full text-xs
+        text-gray-900
+        hover:bg-green-100
+        dark:!text-white
+        dark:hover:!bg-slate-600
+      `,
+
+      selected: `
+        [&>button]:!bg-green-700
+        [&>button]:!text-white
+        dark:[&>button]:!bg-green-600
+        dark:[&>button]:!text-white
+      `,
+
+      today: `
+        font-bold text-green-700
+        dark:!text-green-400
+      `,
+    }}
+  />
+</div>
             <div className='flex min-w-0 flex-col gap-6'>
-<div className="flex min-w-0  gap-4 rounded-md bg-white p-4 xl:flex-col dark:bg-slate-800 hover:shadow-md">
-    <h1 className='text-2xl font-bold '>Attendence Summary</h1>
+<div className="flex min-w-0  gap-4 rounded-md bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] p-4 xl:flex-col dark:bg-slate-800 hover:shadow-md">
+    <h1 className='text-2xl font-bold dark:text-white'>Attendence Summary</h1>
 <div className='flex justify-center items-center gap-12'>
         <div className="relative h-52 w-52 shrink-0">
           <ResponsiveContainer width="100%" height="100%">
@@ -239,7 +257,15 @@ export default function Attendence() {
 
 
 
-      <div className="w-full overflow-x-auto border bg-white border-gray-200 dark:border-gray-700 ">
+      
+            </div>
+
+
+
+
+            </div>
+            <div className='w-full px-8 '>
+<div className="w-full overflow-x-auto rounded-md border bg-white border-gray-200 dark:!border dark:!border-white/15  dark:!text-white dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] ">
         <h1 className='text-xl font-bold py-5 px-4'>Recent Attendence</h1>
         <table className="w-full border-collapse text-left ">
             
@@ -264,7 +290,7 @@ return(
 
                     </td>
                      <td className="px-8 py-3">
-        <button className="rounded-md bg-green-600 px-3 py-2 text-white hover:bg-green-700">
+        <button className="rounded-md text-xs bg-secondary px-2 py-1.5 text-white  cursor-pointer">
           Download
         </button>
       </td>
@@ -277,13 +303,7 @@ return(
             </tbody>
         </table>
         </div>
-            </div>
-
-
-
-
-            </div>
-
+        </div>
             
         </div>
   )

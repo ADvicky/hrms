@@ -201,7 +201,7 @@ export default function LeaveManagement() {
      const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -225,9 +225,10 @@ export default function LeaveManagement() {
     setValue(newValue);
   };
    return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col '>
+    <div className=' px-30'>
 
-    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4 p-8">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 p-8 ">
       {kpiData.map((card) => {
           const Icon = card.icon;
           
@@ -235,27 +236,28 @@ export default function LeaveManagement() {
           return (
               <div
               key={card.id}
-              className="flex min-h-25 min-w-0 w-full p-8 gap-2 flex-col justify-center items-center rounded-md bg-white dark:!bg-slate-500  hover:shadow-md"
+              className="flex min-h-20 min-w-0 w-full p-2 items-start  gap-1 flex-col justify-center items-center rounded-md bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] hover:shadow-md"
               >
          
-            
-            <div className="rounded-lg bg-light dark:!bg-slate-500 p-2 w-fit">
-              <Icon size={24} className="text-primary" />
+            <div className='flex self-start gap-2'>
+            <div className="rounded-lg bg-light dark:!bg-gray-800 dark:!text-white  p-2 w-fit">
+              <Icon size={18} className="text-primary dark:!text-white" />
             </div>
             {/* <p className="text-md font-medium text-gray-700 dark:text-gray-300">
       {card.title}
       </p> */}
             
 
+<h1 className='text-xl font-semibold dark:!text-white '>
+            {card.status}
+           </h1>
+           </div>
 
-
-    <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-gray-300">
+    <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white pl-2">
       {card.value}
     </h2>
 
-           <h1 className='text-xl font-semibold'>
-            {card.status}
-           </h1>
+           
  
     
 
@@ -266,7 +268,9 @@ export default function LeaveManagement() {
         );
     })}
     </div>
-    <div className='p-8'>
+   
+    </div>
+     <div className='p-6'>
          <Box sx={{ width: '100%' }}>
       <Tabs
         value={value}
@@ -280,11 +284,12 @@ export default function LeaveManagement() {
       </Tabs>
       <CustomTabPanel value={value} index={0}>
         {/* <TextField label="Item One input" /> */}
-        <div className='overflow-y-auto sidebar-scroll'>
+        <div className='overflow-y-auto sidebar-scroll '>
               <TableContainer component={Paper}>
       <Table sx={{
     width: "100%",
     tableLayout: "fixed",
+    
   }} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0

@@ -41,7 +41,7 @@ function SystemSettings({ onSelect }: SystemSettingsProps) {
   return (
     <div className="w-full flex flex-col gap-4">
 
-      <h2 className="text-xl font-semibold">
+      <h2 className="text-xl font-semibold dark:!text-white ">
         System Settings
       </h2>
 
@@ -56,7 +56,7 @@ function SystemSettings({ onSelect }: SystemSettingsProps) {
               key={setting.id}
               type="button"
               onClick={() => onSelect?.(setting.id)}
-              className="bg-white dark:bg-gray-800
+              className="bg-white dark:!border dark:!text-white  dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
               rounded-xl p-5 min-h-[120px]
               flex flex-col items-center justify-center
               gap-3 cursor-pointer
@@ -64,11 +64,12 @@ function SystemSettings({ onSelect }: SystemSettingsProps) {
               hover:bg-emerald-50 dark:hover:bg-gray-700
               transition-colors"
             >
-
+<div className="dark:!bg-gray-600 bg-gray-400 px-2 py-2 rounded-md">
               <Icon
-                size={32}
-                className="text-emerald-700"
+                size={22}
+                className="text-emerald-700  dark:!text-white "
               />
+              </div>
 
               <span className="text-sm font-semibold text-center">
                 {setting.name}

@@ -15,7 +15,7 @@ function DashboardKpiCards({
   cards,
 }: DashboardKpiCardsProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-1">
 
       {cards.map((card) => {
         const Icon = card.icon;
@@ -23,7 +23,7 @@ function DashboardKpiCards({
         return (
           <div
             key={card.title}
-            className="bg-white dark:bg-gray-800
+            className="bg-white dark:bg-black dark:!border dark:!border-white/15 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] dark dark:text-white
             rounded-xl p-5 min-w-0
             shadow-[0_0_10px_rgba(0,0,0,0.08)]
             flex flex-col gap-3"
@@ -34,10 +34,10 @@ function DashboardKpiCards({
                 {card.title}
               </span>
 
-              <div className="bg-emerald-100 rounded-lg p-2 shrink-0">
+              <div className="bg-emerald-100 rounded-lg p-2 shrink-0 dark:!bg-gray-800 dark:!text-white ">
                 <Icon
-                  size={22}
-                  className={card.color ?? "text-emerald-700"}
+                  size={18}
+                  className={card.color ?? "text-emerald-700 dark:!text-white"}
                 />
               </div>
 

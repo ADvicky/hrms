@@ -33,7 +33,7 @@ function ManagementSearch({
         dark:bg-gray-800 dark:text-white
         pl-12 pr-4 py-3 outline-none
         border border-gray-200
-        focus:border-emerald-500"
+        focus:border-emerald-500 dark:!border dark:!border-white/15"
       />
 
     </div>

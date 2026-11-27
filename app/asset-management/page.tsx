@@ -9,6 +9,7 @@ import {
   Wrench,
   Plus,
   Trash2,
+  ChevronDown,
 } from "lucide-react";
 
 import {
@@ -24,8 +25,9 @@ import DashboardKpiCards from "@/app/components/DashboardKpiCards";
 import ManagementTabs from "@/app/components/ManagementTabs";
 import ManagementSearch from "@/app/components/ManagementSearch";
 import ManagementModal from "@/app/components/ManagementModal";
+import { useTheme } from "next-themes";
 
-// 1. Asset types
+
 
 type AssetStatus =
   | "Available"
@@ -56,7 +58,7 @@ interface ReturnRecord {
   condition: string;
 }
 
-// 2. Asset categories
+
 
 const categories = [
   "Laptop",
@@ -70,7 +72,7 @@ const categories = [
   "Accessories",
 ];
 
-// Temporary employee data
+
 
 const employees = [
   "Arun Kumar",
@@ -80,7 +82,7 @@ const employees = [
   "Karthik R",
 ];
 
-// 3. Tabs
+
 
 const tabs = [
   "Overview",
@@ -91,7 +93,7 @@ const tabs = [
   "Reports",
 ];
 
-// 4. Sample asset data
+
 
 const initialAssets: Asset[] = [
   {
@@ -152,7 +154,7 @@ const initialAssets: Asset[] = [
   },
 ];
 
-// 5. Initial form values
+
 
 const initialForm = {
   name: "",
@@ -191,7 +193,9 @@ function today() {
 
 export default function AssetManagement() {
 
-  // 6. State management
+const { resolvedTheme } = useTheme();
+
+const isDark = resolvedTheme === "dark";
 
   const [assets, setAssets] =
     useState<Asset[]>(initialAssets);
@@ -221,7 +225,7 @@ export default function AssetManagement() {
   const [returnCondition, setReturnCondition] =
     useState("Good");
 
-  // 7. Calculate KPI values
+
 
   const assignedCount = assets.filter(
     (asset) => asset.status === "Assigned"
@@ -254,7 +258,7 @@ export default function AssetManagement() {
       title: "Assigned Assets",
       value: assignedCount,
       icon: UserCheck,
-      color: "text-blue-600",
+      // color: "text-blue-600",
     },
     {
       title: "Available Assets",
@@ -265,11 +269,11 @@ export default function AssetManagement() {
       title: "Under Maintenance",
       value: maintenanceCount,
       icon: Wrench,
-      color: "text-yellow-600",
+      // color: "text-yellow-600",
     },
   ];
 
-  // 8. Chart data
+
 
   const chartData = [
     { name: "Available", value: availableCount },
@@ -278,7 +282,7 @@ export default function AssetManagement() {
     { name: "Retired", value: retiredCount },
   ];
 
-  // 9. Filter assets
+
 
   const filteredAssets = assets.filter((asset) => {
 
@@ -303,7 +307,7 @@ export default function AssetManagement() {
     return matchesSearch && matchesCategory && matchesTab;
   });
 
-  // 10. Add new asset
+
 
   function handleAddAsset(e: FormEvent<HTMLFormElement>) {
 
@@ -364,7 +368,7 @@ export default function AssetManagement() {
     setCategory("all");
   }
 
-  // 11. Open assignment modal
+ 
 
   function openAssignModal(asset: Asset) {
 
@@ -375,7 +379,7 @@ export default function AssetManagement() {
     setAssignOpen(true);
   }
 
-  // 12. Assign asset to employee
+  
 
   function handleAssign(e: FormEvent<HTMLFormElement>) {
 
@@ -406,7 +410,7 @@ export default function AssetManagement() {
     setEmployee("");
   }
 
-  // 13. Open return modal
+
 
   function openReturnModal(asset: Asset) {
 
@@ -417,7 +421,7 @@ export default function AssetManagement() {
     setReturnOpen(true);
   }
 
-  // 14. Return asset
+ 
 
   function handleReturn(e: FormEvent<HTMLFormElement>) {
 
@@ -465,7 +469,7 @@ export default function AssetManagement() {
     setSelectedAsset(null);
   }
 
-  // 15. Update maintenance status
+  
 
   function updateStatus(
     id: string,
@@ -489,7 +493,6 @@ export default function AssetManagement() {
     );
   }
 
-  // 16. Delete asset
 
   function deleteAsset(id: string) {
 
@@ -511,9 +514,9 @@ export default function AssetManagement() {
   return (
     <div className="w-full min-w-0 p-4 md:p-8
       flex flex-col gap-6 bg-[#f5f9f7]
-      dark:bg-gray-900 min-h-screen">
+      dark:!bg-slate-700/20 dark:!text-white min-h-screen">
 
-      {/* Page Header */}
+    
 
       <div className="flex flex-wrap items-center
         justify-between gap-4">
@@ -532,9 +535,9 @@ export default function AssetManagement() {
 
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2
+          className="flex items-center gap-1
           bg-emerald-700 text-white
-          px-4 py-2.5 rounded-lg
+          px-2 py-1.5 text-xs rounded-lg
           hover:bg-emerald-800 cursor-pointer"
         >
           <Plus size={18} />
@@ -543,11 +546,9 @@ export default function AssetManagement() {
 
       </div>
 
-      {/* KPI Cards */}
 
       <DashboardKpiCards cards={cards} />
 
-      {/* Tabs */}
 
       <ManagementTabs
         tabs={tabs}
@@ -555,13 +556,13 @@ export default function AssetManagement() {
         onChange={setValue}
       />
 
-      {/* Chart and Asset Summary */}
+      
 
       {(value === 0 || value === 5) && (
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
-          <div className="bg-white dark:bg-gray-800
+          <div className="bg-white dark:!border dark:!text-white dark:!border-white/15 dark:!bg-slate-700/0 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
             rounded-xl p-5 min-w-0
             shadow-[0_0_10px_rgba(0,0,0,0.08)]">
 
@@ -571,7 +572,7 @@ export default function AssetManagement() {
 
             <div className="w-full h-[280px]">
 
-              <ResponsiveContainer width="100%" height="100%">
+              {/* <ResponsiveContainer width="100%" height="100%">
 
                 <PieChart>
 
@@ -599,15 +600,75 @@ export default function AssetManagement() {
 
                 </PieChart>
 
-              </ResponsiveContainer>
+              </ResponsiveContainer> */}
+              <ResponsiveContainer width="100%" height="100%">
+  <PieChart>
+    <Pie
+      data={chartData}
+      dataKey="value"
+      nameKey="name"
+      innerRadius={55}
+      outerRadius={95}
+      paddingAngle={3}
+      stroke="none"
+    >
+      {chartData.map((item, index) => (
+        <Cell
+          key={item.name}
+          fill={COLORS[index % COLORS.length]}
+        />
+      ))}
+    </Pie>
+
+    <Tooltip
+      cursor={false}
+      contentStyle={{
+        backgroundColor: isDark ? "#1f2937" : "#ffffff",
+
+        border: isDark
+          ? "1px solid rgba(255,255,255,0.15)"
+          : "1px solid #e5e7eb",
+
+        borderRadius: "8px",
+        fontSize: "12px",
+
+        boxShadow: isDark
+          ? "0 0 8px rgba(101,168,121,0.4)"
+          : "0 2px 8px rgba(0,0,0,0.1)",
+      }}
+      labelStyle={{
+        color: isDark ? "#ffffff" : "#111827",
+        fontWeight: 600,
+      }}
+      itemStyle={{
+        color: isDark ? "#d1d5db" : "#374151",
+      }}
+    />
+
+    <Legend
+      iconType="circle"
+      iconSize={10}
+      formatter={(value) => (
+        <span
+          style={{
+            color: isDark ? "#d1d5db" : "#374151",
+            fontSize: "12px",
+          }}
+        >
+          {value}
+        </span>
+      )}
+    />
+  </PieChart>
+</ResponsiveContainer>
 
             </div>
 
           </div>
 
-          {/* Asset Summary */}
+      
 
-          <div className="bg-white dark:bg-gray-800
+          <div className="bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/0 dark:!text-white  dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
             rounded-xl p-5 flex flex-col gap-5
             shadow-[0_0_10px_rgba(0,0,0,0.08)]">
 
@@ -616,9 +677,9 @@ export default function AssetManagement() {
             </h2>
 
             <div className="flex justify-between
-              items-center border-b border-gray-200 pb-4">
+              items-center border-b dark:!border-b dark:!border-white/15 border-gray-200 pb-4">
 
-              <span className="text-gray-500">
+              <span className="text-gray-500 dark:!text-white ">
                 Total Purchase Value
               </span>
 
@@ -637,20 +698,20 @@ export default function AssetManagement() {
               return (
                 <div
                   key={item}
-                  className="flex items-center justify-between gap-3"
+                  className="flex items-center justify-between gap-3 "
                 >
 
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:!text-white ">
                     {item}
                   </span>
 
                   <div className="flex items-center gap-3">
 
                     <div className="w-[100px] sm:w-[150px]
-                      h-2 bg-gray-100 rounded-full">
+                      h-2 bg-gray-100 dark:!bg-gray-500 rounded-full">
 
                       <div
-                        className="h-2 bg-emerald-500 rounded-full"
+                        className="h-2 bg-emerald-500 dark:!bg-emerald-500/50 rounded-full"
                         style={{
                           width: `${
                             assets.length
@@ -678,11 +739,11 @@ export default function AssetManagement() {
 
       )}
 
-      {/* Asset Inventory Table */}
+    
 
       {value !== 4 && value !== 5 && (
 
-        <div className="bg-white dark:bg-gray-800
+        <div className="bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/0 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
           rounded-xl p-4 min-w-0 flex flex-col gap-5
           shadow-[0_0_10px_rgba(0,0,0,0.08)]">
 
@@ -693,19 +754,28 @@ export default function AssetManagement() {
               {value === 0 ? "Asset Inventory" : tabs[value]}
             </h2>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex  gap-3">
 
               <ManagementSearch
                 value={search}
                 onChange={setSearch}
                 placeholder="Search assets..."
               />
-
+<div className="relative w-fit">
               <select
                 aria-label="Asset category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="border border-gray-200
+                 className="
+      appearance-none
+      border border-gray-200
+      rounded-lg
+      pl-3 pr-10 py-2
+      cursor-pointer
+      outline-none
+      dark:!border dark:!border-white/15
+      dark:text-white
+      
                 rounded-lg px-3 py-2 dark:bg-gray-800"
               >
 
@@ -718,6 +788,20 @@ export default function AssetManagement() {
                 ))}
 
               </select>
+                <ChevronDown
+    size={16}
+    className="
+      absolute
+      right-3
+      top-1/2
+      -translate-y-1/2
+      pointer-events-none
+      text-gray-500
+      dark:text-gray-300
+    "
+  />
+
+</div>
 
             </div>
 
@@ -726,7 +810,7 @@ export default function AssetManagement() {
           <div className="w-full overflow-x-auto">
 
             <table className="w-full min-w-[1000px]
-              text-sm text-left">
+              text-sm text-left dark:!border dark:!border-white/15">
 
               <thead className="bg-gray-100 dark:bg-gray-700">
 
@@ -794,7 +878,7 @@ export default function AssetManagement() {
                             <button
                               onClick={() => openAssignModal(asset)}
                               className="bg-green-100 text-green-700
-                              px-3 py-1.5 rounded-md"
+                              px-2 text-xs py-1.5 rounded-md"
                             >
                               Assign
                             </button>
@@ -803,9 +887,9 @@ export default function AssetManagement() {
                               onClick={() =>
                                 updateStatus(asset.id, "Maintenance")
                               }
-                              className="text-yellow-600 p-2"
+                              className="text-yellow-600 p-2 cursor-pointer"
                               aria-label="Send to maintenance"
-                              title="Send to maintenance"
+                              title="Send to maintenance "
                             >
                               <Wrench size={18} />
                             </button>
@@ -816,7 +900,7 @@ export default function AssetManagement() {
                           <button
                             onClick={() => openReturnModal(asset)}
                             className="bg-blue-100 text-blue-700
-                            px-3 py-1.5 rounded-md"
+                            px-2 py-1.5 text-xs rounded-md cursor-pointer"
                           >
                             Return
                           </button>
@@ -828,7 +912,7 @@ export default function AssetManagement() {
                               updateStatus(asset.id, "Available")
                             }
                             className="bg-green-100 text-green-700
-                            px-3 py-1.5 rounded-md whitespace-nowrap"
+                            px-2 text-xs py-1.5 rounded-md whitespace-nowrap cursor-pointer"
                           >
                             Complete Repair
                           </button>
@@ -840,7 +924,7 @@ export default function AssetManagement() {
                             onClick={() =>
                               updateStatus(asset.id, "Retired")
                             }
-                            className="text-gray-500 text-xs"
+                            className="text-gray-500 text-xs dark:!text-white cursor-pointer"
                           >
                             Retire
                           </button>
@@ -850,7 +934,7 @@ export default function AssetManagement() {
                           <button
                             aria-label={`Delete ${asset.id}`}
                             onClick={() => deleteAsset(asset.id)}
-                            className="text-red-600 p-2"
+                            className="text-red-600 p-2 cursor-pointer"
                           >
                             <Trash2 size={18} />
                           </button>
@@ -885,11 +969,10 @@ export default function AssetManagement() {
 
       )}
 
-      {/* Return History */}
 
       {value === 4 && (
 
-        <div className="bg-white dark:bg-gray-800
+        <div className="bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/0 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
           rounded-xl p-5 min-w-0
           shadow-[0_0_10px_rgba(0,0,0,0.08)]">
 
@@ -900,9 +983,9 @@ export default function AssetManagement() {
           <div className="overflow-x-auto">
 
             <table className="w-full min-w-[600px]
-              text-sm text-left">
+              text-sm text-left dark:!border dark:!border-white/15 ">
 
-              <thead className="bg-gray-100 dark:bg-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-700 ">
 
                 <tr>
                   <th className="p-4">Asset Name</th>
@@ -938,7 +1021,7 @@ export default function AssetManagement() {
                   <tr>
                     <td
                       colSpan={4}
-                      className="p-10 text-center text-gray-500"
+                      className="p-10 text-center text-gray-500 dark:!text-white"
                     >
                       No asset returns recorded
                     </td>
@@ -955,7 +1038,7 @@ export default function AssetManagement() {
 
       )}
 
-      {/* Add Asset Modal */}
+   
 
       <ManagementModal
         open={open}
@@ -1110,7 +1193,7 @@ export default function AssetManagement() {
               type="button"
               onClick={() => setOpen(false)}
               className="border border-gray-300
-              px-4 py-2 rounded-lg"
+              px-2 py-1.5 text-xs rounded-lg cursor-pointer"
             >
               Cancel
             </button>
@@ -1118,7 +1201,7 @@ export default function AssetManagement() {
             <button
               type="submit"
               className="bg-emerald-700 text-white
-              px-4 py-2 rounded-lg"
+              px-2 py-1.5 text-xs rounded-lg cursor-pointer"
             >
               Save Asset
             </button>
@@ -1192,7 +1275,7 @@ export default function AssetManagement() {
 
       </ManagementModal>
 
-      {/* Return Asset Modal */}
+    
 
       <ManagementModal
         open={returnOpen}

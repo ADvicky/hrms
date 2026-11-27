@@ -84,7 +84,7 @@ export default function Payroll() {
           shadow-sm
           transition-shadow
           hover:shadow-md
-          dark:bg-slate-800
+         dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
           sm:max-w-[400px]
           sm:p-6
         "
@@ -108,12 +108,13 @@ export default function Payroll() {
           </div>
         </div>
       </div>
-       <div className="h-64 w-full min-w-0 flex-1 bg-white rounded-md hover:shadow-md">
+       <div className="h-64 w-full min-w-0 flex-1 bg-white dark:!border dark:!border-white/15 dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)] rounded-md hover:shadow-md">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={weeklyData}>
                   <CartesianGrid
                     // stroke="var(--attendance-grid)"
                     stroke="#d1d5db"
+                    
  
                     horizontal={true}
   
@@ -149,6 +150,18 @@ export default function Payroll() {
                       `${value}%`,
                       "Attendance",
                     ]}
+      contentStyle={{
+    backgroundColor: "transparent",
+    border: "none",
+    boxShadow: "none",
+  }}
+  labelStyle={{
+    color: "var(--attendance-axis)",
+  }}
+  itemStyle={{
+    color: "var(--attendance-axis)",
+  }}
+  cursor={false}
                     // contentStyle={{
                     //   backgroundColor: "var(--attendance-tooltip-bg)",
                     //   color: "var(--attendance-tooltip-text)",
@@ -189,13 +202,13 @@ export default function Payroll() {
               </ResponsiveContainer>
             </div>
     </div>
-    <div className=" p-4 sm:p-6 lg:p-8">
-        <div className="bg-white w-full rounded-md">
-        <h1 className="text-xl font-bold p-6">Recent Payslips</h1>
+    {/* <div className=" p-4 sm:p-6 lg:p-8">
+        <div className="bg-white dark:!border dark:!border-white/15  w-full rounded-md">
+        <h1 className="text-xl font-bold p-6  ">Recent Payslips</h1>
         <div className="w-full overflow-x-auto border border-gray-200 dark:border-gray-700 ">
-        <table className="w-full border-collapse text-left ">
+        <table className="w-full border-collapse text-left dark:!border dark:!border-white/15">
             
-            <thead className="bg-gray-300 dark:bg-gray-800">
+            <thead className="bg-gray-300  dark:!bg-gray-800 dark:!text-white">
                 <tr>
                     <th className="px-8 py-3 text-sm font-semibold">Employee</th>
                     <th className="px-8 py-3 text-sm font-semibold">Month</th>
@@ -206,7 +219,7 @@ export default function Payroll() {
                 
                    {payrollData && payrollData.map( (pay) => {
 return(
-    <tr key={pay.id} className="border-t text-left border-gray-200  dark:border-gray-700 hover:bg-gray-300/30">
+    <tr key={pay.id} className="border-t text-left border-gray-200   hover:bg-gray-300/30 dark:!border dark:!border-white/15 ">
     <td  className="px-8 py-3">
         {pay.employee}
 
@@ -230,7 +243,79 @@ return(
         </table>
         </div>
     </div>
+    </div> */}
+    <div className="p-4 sm:p-6 lg:p-8">
+  <div
+    className="
+      w-full rounded-md
+      bg-white 
+      border border-gray-200
+     dark:!border dark:!border-white/15 dark:!text-white dark:!bg-slate-700/20 dark:hover:shadow-[0_0_8px_rgba(101,168,121,0.4)]
+    "
+  >
+    <h1 className="text-xl font-bold p-6">
+      Recent Payslips
+    </h1>
+
+    <div className="w-full overflow-x-auto border-t border-gray-200 dark:border-white/15">
+      <table className="w-full border-collapse text-left">
+
+        <thead className="bg-gray-300 dark:bg-gray-800">
+          <tr>
+            <th className="px-8 py-3 text-sm font-semibold">
+              Employee
+            </th>
+
+            <th className="px-8 py-3 text-sm font-semibold">
+              Month
+            </th>
+
+            <th className="px-8 py-3 text-sm font-semibold">
+              Download
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {payrollData?.map((pay) => (
+            <tr
+              key={pay.id}
+              className="
+                border-t
+                border-gray-200
+                dark:border-white/15
+                hover:bg-gray-300/30
+                dark:hover:bg-gray-600
+                transition-colors
+              "
+            >
+              <td className="px-8 py-3">
+                {pay.employee}
+              </td>
+
+              <td className="px-8 py-3">
+                {pay.month}
+              </td>
+
+              <td className="px-8 py-3">
+                <button
+                  className="
+                    rounded-md text-xs px-2 py-1.5
+                    bg-secondary text-white
+                    cursor-pointer
+                  "
+                >
+                  Download
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+
+      </table>
     </div>
+  </div>
+</div>
     </div>
   );
 }

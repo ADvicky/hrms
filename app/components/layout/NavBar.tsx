@@ -158,21 +158,21 @@ const emailName = displayName
 
 </div>
   </div> */}
-  <div className="relative" ref={pop}>
+  <div className="relative bg-gray-200 dark:!bg-gray-800 px-2 py-1.5 rounded-full" ref={pop}>
 
-  {/* Profile trigger */}
+ 
   <button
     type="button"
     onClick={() => setPopup((prev) => !prev)}
     aria-expanded={popup}
     className="flex items-center gap-2 cursor-pointer text-left"
   >
-    {/* Profile avatar */}
+   
     <span className="w-9 h-9 rounded-full bg-secondary text-white flex items-center justify-center font-medium">
       {navname?.toUpperCase()}
     </span>
 
-    {/* Profile details */}
+    
     <span className="flex flex-col">
       <span className="text-black text-sm dark:text-gray-300 leading-none">
         {emailName}
@@ -183,7 +183,7 @@ const emailName = displayName
       </span>
     </span>
 
-    {/* Dropdown icon */}
+   
     <ChevronDown
       className={`text-black dark:text-white w-4 h-4
         transition-transform duration-500
@@ -193,7 +193,7 @@ const emailName = displayName
     />
   </button>
 
-  {/* Dropdown content */}
+ 
   {popup && (
     <div
       className="absolute z-50 flex flex-col
