@@ -7,13 +7,17 @@ export default function LiveClock() {
 
   
   
-const hours = time.getHours()
+const hours = time.getHours() 
 const minutes = time.getMinutes()
+const fin = hours % 12 || 12;
+const formattedMinutes = String(minutes).padStart(2, '0');
+const formattedHours= String(fin).padStart(2, '0');
+const ampms = hours >= 12 ? 'PM' : 'AM';
 
 const ampm = time.toLocaleTimeString().split(":")[2]
 
 
-console.log("live",hours,minutes,ampm);
+console.log("li",hours,minutes,ampm,fin,formattedMinutes);
 
   const today = new Date()
   const date = today.getDate()
@@ -30,7 +34,7 @@ const shortDate = today.toLocaleDateString('en-IN'); // "26/11/2026"
 const finalmonth = monthName.slice(0,3)
   
   
-  console.log("time",day,date,month,year,monthName,shortDate,finalmonth);
+  // console.log("time",day,date,month,year,monthName,shortDate,finalmonth);
 
   const finalDate = `${date} ${finalmonth} ${year}`
   
@@ -56,8 +60,8 @@ const finalmonth = monthName.slice(0,3)
  
 
   <div className="flex items-baseline gap-1 text-white self-start px-4 pb-6 tabular-nums mx-auto">
-    <p className="text-4xl font-medium tracking-tight">{`${hours}:${minutes}`}</p>
-    <span className="text-base  font-normal">:{ampm}</span>
+    <p className="text-4xl font-medium tracking-tight">{`${formattedHours}:${formattedMinutes}`}</p>
+    <span className="text-base  font-normal">:{ampm}</span><p className='text-clip'>{ampms}</p>
   </div>
 </div>
 

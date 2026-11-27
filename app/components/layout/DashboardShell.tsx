@@ -246,9 +246,9 @@ export default function DashboardShell({
             overflow-x-hidden
           "
         >
-          <div className="w-full min-w-0">
+          {/* <div className="w-full min-w-0"> */}
             {children}
-          </div>
+          {/* </div> */}
         </main>
 
       </div>
